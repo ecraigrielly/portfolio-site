@@ -63,7 +63,7 @@ body{background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacS
 .dark #now{--sh-ink:#fff;--sh-bg:#0a0f1a;--sh-line:rgb(255 255 255 / .12)}
 .sh-head{display:grid;gap:1rem 4rem;margin-bottom:3rem}
 .sh-kicker{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6b7280}
-.sh-h{font-size:clamp(2.5rem,6vw,5rem);line-height:1;font-weight:800;letter-spacing:-.04em;color:var(--sh-ink)}
+.sh-h{font-size:clamp(2.5rem,6vw,5rem);line-height:1;font-weight:700;letter-spacing:-.04em;color:var(--sh-ink)}
 .sh-intro{display:grid;gap:1rem;align-content:end}
 .sh-intro>p:first-child{font-size:1.2rem;line-height:1.55;color:#374151;max-width:40ch}
 .dark .sh-intro>p:first-child{color:#d1d5db}
@@ -72,7 +72,7 @@ body{background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacS
 .sh-row:first-child{padding-top:0}
 .sh-row:last-child{border-bottom:0;padding-bottom:0}
 .sh-row{display:grid;gap:.75rem;padding:1.75rem 0;border-bottom:1px solid var(--sh-line)}
-.sh-verb{font-size:clamp(2.75rem,9vw,7.5rem);line-height:.95;font-weight:800;letter-spacing:-.045em;color:var(--sh-ink);
+.sh-verb{font-size:clamp(2.75rem,9vw,7.5rem);line-height:.95;font-weight:700;letter-spacing:-.045em;color:var(--sh-ink);
   overflow-wrap:anywhere}
 .sh-detail{position:relative;display:grid;gap:1.5rem;align-content:center}
 .sh-entry{display:grid;gap:.3rem}
@@ -157,7 +157,7 @@ html.paused .now-live{animation:none}
 
 /* ===== About: editorial, no cards ===== */
 .ab-kicker{font-size:.8rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:#6b7280;margin-bottom:1rem}
-.ab-h{font-size:clamp(2.6rem,7vw,6rem);line-height:.98;font-weight:800;letter-spacing:-.045em;color:#101828}
+.ab-h{font-size:clamp(2.6rem,7vw,6rem);line-height:.98;font-weight:700;letter-spacing:-.045em;color:#101828}
 .dark .ab-h{color:#fff}
 .ab-h span{display:block;color:#9ca3af}
 .dark .ab-h span{color:#6b7280}
@@ -174,7 +174,7 @@ html.paused .now-live{animation:none}
 .dark .ab-fact dd{color:#d1d5db}
 .ab-derby{position:relative;display:grid;gap:2rem;align-items:end;margin-top:4rem;padding-top:3rem;border-top:1px solid rgb(0 0 0 / .1)}
 .dark .ab-derby{border-top-color:rgb(255 255 255 / .12)}
-.ab-derby-h{font-size:clamp(2rem,4.5vw,3.75rem);line-height:1.02;font-weight:800;letter-spacing:-.035em;color:#101828}
+.ab-derby-h{font-size:clamp(2rem,4.5vw,3.75rem);line-height:1.02;font-weight:700;letter-spacing:-.035em;color:#101828}
 .dark .ab-derby-h{color:#fff}
 .ab-derby-h span{display:block;color:#9ca3af}
 .dark .ab-derby-h span{color:#6b7280}
@@ -1000,7 +1000,7 @@ button.sap-pip[aria-current=true]::after,button.sh-pip[aria-current=true]::after
 
 <section id="work" class="pt-16 md:pt-24 pb-20 md:pb-28 bg-gray-50 dark:bg-gray-800 transition-colors duration-300" aria-labelledby="work-heading">
 <div class="max-w-7xl mx-auto px-6 lg:px-8"><div class="wk-head">
-<div class="rv-head"><p class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Case studies</p><h2 id="work-heading" class="big-head text-4xl md:text-6xl font-semibold text-gray-900 dark:text-white tracking-tight mb-4">Selected work</h2>
+<div class="rv-head"><p class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Case studies</p><h2 id="work-heading" class="big-head text-4xl md:text-6xl font-bold text-gray-900 dark:text-white tracking-tight mb-4">Selected work</h2>
 <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-2xl leading-relaxed">Projects where systems thinking, accessibility, and collaboration came together to solve real problems at scale.</p></div>
 <div class="ftabs rv-head flex flex-wrap gap-2" role="group" aria-label="Filter work by category"><button type="button" data-f="all" aria-pressed="true" class="ftab btn btn-sm btn-primary">All work</button><button type="button" data-f="design-systems" aria-pressed="false" class="ftab btn btn-sm btn-secondary">Design systems</button><button type="button" data-f="native-mobile" aria-pressed="false" class="ftab btn btn-sm btn-secondary">Native mobile</button><button type="button" data-f="responsive-web" aria-pressed="false" class="ftab btn btn-sm btn-secondary">Responsive web</button></div><p id="workStatus" class="sr-only" role="status" aria-live="polite"></p>
 </div></div>
