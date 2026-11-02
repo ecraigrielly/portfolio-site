@@ -1,0 +1,1453 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Navigator Port Guides</title>
+<meta name="description" content="Seattle-based Principal UX Designer with 25+ years of experience. Design systems, responsive web, native mobile, accessibility, and AI workflows.">
+<link rel="stylesheet" href="site.css">
+<script>
+/* Pick light/dark before first paint. The viewer's data-theme wins; otherwise follow the OS. */
+(function(){var r=document.documentElement,t=r.getAttribute('data-theme'),m=matchMedia('(prefers-color-scheme: dark)').matches;
+if(t==='dark'||(t!=='light'&&m))r.classList.add('dark');})();
+</script>
+<style>
+/* Motion layer on top of the existing site styles. Colors come from the site's own Tailwind tokens. */
+:root{--ease-out:cubic-bezier(.16,1,.3,1);--ease-io:cubic-bezier(.65,0,.35,1);--page:#fff;--ink:#101828;color-scheme:light}
+:root.dark{--page:#000;--ink:#fff;color-scheme:dark}
+html{scroll-padding-top:72px}
+html.ready{scroll-behavior:smooth}
+html,body{overflow-x:clip}
+body{background:var(--page);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+#topnav{padding-top:env(safe-area-inset-top,0px)}
+.dark .i-moon,html:not(.dark) .i-sun{display:none}
+.paused .i-pause,html:not(.paused) .i-play{display:none}
+
+/* small utility gaps not in the compiled stylesheet */
+@media (min-width:48rem){.md\:inline-block{display:inline-block}}
+.mb-4{margin-bottom:1rem}.object-left{object-position:left}.select-all{user-select:all}
+
+/* scroll progress */
+.progress{position:fixed;inset:0 0 auto;height:2px;z-index:60;background:var(--ink);transform-origin:0 50%;transform:scaleX(var(--p,0));opacity:.85;pointer-events:none}
+#topnav{transition:box-shadow .4s var(--ease-out),background-color .3s}
+#topnav.scrolled{box-shadow:0 8px 30px -12px rgb(0 0 0 / .18)}
+
+/* hero entrance */
+@keyframes rise{from{opacity:0;transform:translateY(28px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+.enter{animation:rise 1s var(--ease-out) both;animation-delay:calc(var(--d,0) * 110ms + 80ms)}
+
+/* rotating headline */
+.rotator .words{display:inline-grid;justify-items:center}
+/* every phrase on one line, so the block height never changes */
+.rotator{font-size:1em;line-height:1.15;white-space:nowrap;margin-top:.12em;letter-spacing:-.01em}
+@media (max-width:480px){#hero-heading{font-size:2.125rem}}
+@media (min-width:768px){#hero-heading{font-size:5rem}}
+.rotator .word{grid-area:1/1;display:inline-block;opacity:0;transform:translateY(.45em);filter:blur(10px);transition:opacity .7s var(--ease-out),transform .8s var(--ease-out),filter .7s var(--ease-out)}
+.rotator .word.is-on{opacity:1;transform:none;filter:none}
+.rotator .word.is-out{opacity:0;transform:translateY(-.45em);filter:blur(10px)}
+
+/* hero background drift + parallax */
+.hero-bg{transform:scale(1.12) scaleY(var(--flip,1));animation:drift 38s var(--ease-io) infinite alternate;will-change:transform}
+.hero-bg.flip{--flip:-1}
+@keyframes drift{from{transform:translate3d(-1.5%,0,0) scale(1.12) scaleY(var(--flip,1))}to{transform:translate3d(1.5%,-2%,0) scale(1.2) scaleY(var(--flip,1))}}
+
+/* ===== "What I'm up to": bento grid (featured tile + five) ===== */
+.now-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:.75rem 2rem;margin-bottom:2.5rem}
+.now-sub{display:inline-flex;align-items:center;gap:.6rem;font-size:.95rem;font-weight:500;color:#4b5563}
+.dark .now-sub{color:#9ca3af}
+.now-live{width:.55rem;height:.55rem;border-radius:50%;background:#16a34a;box-shadow:0 0 0 0 rgb(22 163 74 / .5);animation:livePulse 2.4s ease-out infinite}
+@keyframes livePulse{0%{box-shadow:0 0 0 0 rgb(22 163 74 / .45)}70%,100%{box-shadow:0 0 0 .5rem rgb(22 163 74 / 0)}}
+.now-grid{display:grid;gap:1rem;grid-template-columns:1fr}
+.now-tile{position:relative;display:flex;flex-direction:column;gap:.75rem;padding:1.5rem;border-radius:1rem;background:#f9fafb;border:1px solid #e5e7eb;transition:border-color .2s ease,background-color .2s ease}
+.now-tile:hover{border-color:#9ca3af}
+.dark .now-tile{background:rgb(255 255 255 / .04);border-color:rgb(255 255 255 / .1)}
+.dark .now-tile:hover{border-color:rgb(255 255 255 / .35)}
+.now-tile .tag{align-self:flex-start}
+.now-tile h3{font-size:1.25rem;line-height:1.25;font-weight:600;color:#111827;letter-spacing:-.01em}
+.dark .now-tile h3{color:#fff}
+.now-tile p{color:#4b5563;line-height:1.6;font-size:.975rem}
+.dark .now-tile p{color:#d1d5db}
+.now-tile a,.dark .now-tile a{color:inherit!important;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;text-decoration-color:currentColor;transition:text-decoration-thickness .15s}
+.now-tile a:hover{text-decoration-thickness:2px}
+.now-feat{background:#1d1d1f;border-color:#1d1d1f;padding:2rem;justify-content:flex-end;min-height:20rem}
+.now-feat:hover{border-color:#6b7280}
+.dark .now-feat{background:#f5f5f7;border-color:#f5f5f7}
+.dark .now-feat:hover{border-color:#fff}
+.now-feat h3{font-size:clamp(1.75rem,3.2vw,2.75rem);line-height:1.08;letter-spacing:-.025em;color:#fff;max-width:14ch}
+.now-feat p{color:#d1d5db;font-size:1.05rem;max-width:46ch}
+.dark .now-feat h3{color:#111}
+.dark .now-feat p{color:#374151}
+.dark .now-feat .tag{background:#fff;border-color:#d1d5db;color:#374151}
+.now-feat::before{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:.5;
+  background-image:radial-gradient(rgb(255 255 255 / .22) 1px,transparent 1.2px);background-size:22px 22px;
+  -webkit-mask-image:linear-gradient(200deg,#000 0%,transparent 55%);mask-image:linear-gradient(200deg,#000 0%,transparent 55%)}
+.dark .now-feat::before{background-image:radial-gradient(rgb(0 0 0 / .18) 1px,transparent 1.2px)}
+.now-feat>*{position:relative}
+@media (min-width:768px){
+  .now-grid{grid-template-columns:repeat(6,1fr)}
+  .now-tile{grid-column:span 3}
+}
+@media (min-width:1024px){
+  .now-grid{grid-template-columns:repeat(12,1fr);grid-auto-rows:auto}
+  .now-feat{grid-column:1 / span 7;grid-row:1 / span 2}
+  .now-tile:nth-child(2),.now-tile:nth-child(3){grid-column:8 / span 5}
+  .now-tile:nth-child(n+4){grid-column:span 4}
+}
+@supports (animation-timeline: view()){
+  .now-tile{animation:reveal linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry calc(var(--i) * 5%) cover calc(22% + var(--i) * 3%)}
+}
+@media (prefers-reduced-motion: reduce){.now-tile{animation:none!important}.now-live{animation:none}}
+html.paused .now-live{animation:none}
+
+/* ===== Expertise explorer: big skill list (left) + detail panel with linked case studies (right) ===== */
+.xe{display:grid;gap:1rem}
+.xe-tab{all:unset;box-sizing:border-box;display:flex;align-items:baseline;gap:1rem;width:100%;cursor:default}
+.xe-n{font-size:.8rem;font-weight:600;letter-spacing:.08em;color:#6b7280;font-variant-numeric:tabular-nums}
+.xe-name{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;line-height:1.15;color:#101828}
+.dark .xe-name{color:#fff}
+.xe-panel{position:relative;overflow:hidden;padding:1.5rem;border-radius:1.25rem;background:#fff;border:1px solid #e5e7eb;margin-top:.75rem}
+.dark .xe-panel{background:#111827;border-color:rgb(255 255 255 / .1)}
+.xe-big{position:absolute;right:-.06em;top:-.22em;font-size:9rem;font-weight:800;line-height:1;letter-spacing:-.04em;color:transparent;-webkit-text-stroke:1.5px #e5e7eb;paint-order:stroke fill;pointer-events:none}
+.dark .xe-big{-webkit-text-stroke-color:rgb(255 255 255 / .1)}
+.xe-ic{position:relative;width:3rem;height:3rem;border-radius:.85rem;display:grid;place-items:center;background:#101828;color:#fff;margin-bottom:1.25rem}
+.dark .xe-ic{background:#fff;color:#101828}
+.xe-h{display:none}
+.xe-p{position:relative;font-size:1.1rem;line-height:1.6;color:#374151;max-width:38ch}
+.dark .xe-p{color:#d1d5db}
+.xe-seen{position:relative;margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid #e5e7eb}
+.dark .xe-seen{border-top-color:rgb(255 255 255 / .1)}
+.xe-lab{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#6b7280;margin-bottom:.75rem}
+.xe-chips{display:flex;flex-wrap:wrap;gap:.5rem}
+.xe-chips svg{width:.9rem;height:.9rem}
+.xe-item{padding:1.5rem 0;border-top:1px solid rgb(0 0 0 / .1)}
+.dark .xe-item{border-top-color:rgb(255 255 255 / .12)}
+@media (max-width:63.99rem){
+  .xe{gap:0}
+  .xe-item{padding:1.1rem 0}
+  .xe-item:last-child{border-bottom:1px solid rgb(0 0 0 / .1)}
+  .dark .xe-item:last-child{border-bottom-color:rgb(255 255 255 / .12)}
+  .xe-tab{cursor:pointer;align-items:center}
+  .xe-tab::after{content:"";margin-left:auto;width:.6rem;height:.6rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translate(-2px,-2px);transition:transform .25s ease;color:#6b7280}
+  .xe-item.is-on .xe-tab::after{transform:rotate(-135deg)}
+  .xe-item:not(.is-on) .xe-panel{display:none}
+  .xe-tab:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:4px}
+}
+@media (min-width:64rem){
+  .xe{grid-template-columns:minmax(0,5fr) minmax(0,7fr);grid-auto-rows:auto;column-gap:4rem;row-gap:0;align-items:start}
+  .xe-item{display:contents}
+  .xe-tab{grid-column:1;position:relative;padding:1.1rem 0 1.1rem 1.25rem;border-top:1px solid rgb(0 0 0 / .1);cursor:pointer}
+  .dark .xe-tab{border-top-color:rgb(255 255 255 / .12)}
+  .xe-item:last-child .xe-tab{border-bottom:1px solid rgb(0 0 0 / .1)}
+  .dark .xe-item:last-child .xe-tab{border-bottom-color:rgb(255 255 255 / .12)}
+  .xe-tab::before{content:"";position:absolute;left:0;top:.9rem;bottom:.9rem;width:3px;border-radius:3px;background:#101828;transform:scaleY(0);transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+  .dark .xe-tab::before{background:#fff}
+  .xe-name{font-size:clamp(1.6rem,2.6vw,2.4rem);color:#9ca3af;transition:color .2s ease}
+  .dark .xe-name{color:#6b7280}
+  .xe-tab:hover .xe-name{color:#4b5563}
+  .dark .xe-tab:hover .xe-name{color:#d1d5db}
+  .xe-item.is-on .xe-name{color:#101828}
+  .dark .xe-item.is-on .xe-name{color:#fff}
+  .xe-item.is-on .xe-tab::before{transform:scaleY(1)}
+  .xe-tab:focus-visible{outline:2px solid currentColor;outline-offset:2px;border-radius:4px}
+  .xe-panel{grid-column:2;grid-row:1 / span 6;margin-top:0;padding:2.5rem;min-height:100%;position:sticky;top:6rem;
+    opacity:0;visibility:hidden;transform:translateY(10px);transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s .45s}
+  .xe-item.is-on .xe-panel{opacity:1;visibility:visible;transform:none;transition:opacity .35s ease .05s,transform .45s cubic-bezier(.2,.8,.2,1) .05s,visibility 0s}
+  .xe-h{display:block;position:relative;font-size:1.75rem;font-weight:700;letter-spacing:-.02em;color:#101828;margin-bottom:.75rem}
+  .dark .xe-h{color:#fff}
+  .xe-p{font-size:1.25rem}
+  .xe-big{font-size:14rem}
+}
+@media (prefers-reduced-motion: reduce){.xe-panel,.xe-tab::before{transition:none!important;transform:none!important}}
+
+/* typography: no widows or orphans anywhere (even line breaks for body copy, balanced headings) */
+p,li,dd,dt,blockquote,figcaption{text-wrap:pretty}
+h1,h2,h3,h4,h5,h6{text-wrap:balance}
+
+/* mobile menu (below 768px the nav links collapse behind a menu button) */
+.nav-menu-btn .i-close,.nav-menu-btn[aria-expanded=true] .i-menu{display:none}
+.nav-menu-btn[aria-expanded=true] .i-close{display:inline}
+.mobile-menu{display:grid;gap:0;padding:.25rem 0 1.5rem}
+.mobile-menu .mm-link{display:block;padding:.9rem 0;font-size:1.25rem;font-weight:600;letter-spacing:-.01em;color:#101828;border-bottom:1px solid rgb(0 0 0 / .08);text-decoration:none}
+.dark .mobile-menu .mm-link{color:#fff;border-bottom-color:rgb(255 255 255 / .1)}
+.mobile-menu .btn{justify-self:start;margin-top:1.25rem}
+.mobile-menu .btn svg{width:.9rem;height:.9rem}
+@media (min-width:48rem){.nav-menu-btn,.mobile-menu{display:none!important}}
+
+/* ===== Accessibility pass ===== */
+/* contrast: small gray labels reach 4.5:1 and large gray display text reaches 3:1, in both themes */
+html:not(.dark) :is(#outcomes-section, .fs-head) .text-gray-400, html:not(.dark) span.text-gray-400{color:#6b7280}
+html:not(.dark) .fs-tab:not([aria-selected="true"]) .fs-tab-n{color:#4b5563;opacity:1}
+html:not(.dark) .ramp-before span{color:#6b7280}
+html:not(.dark) .xe-name{color:#6b7280}
+html:not(.dark) .ab-h span{color:#6b7280}
+html.dark :is(.sh-kicker,.sh-cat,.wk-client,.wk-lab,.xe-lab,.xe-n,.ab-kicker,.ab-fact dt,.fs-kicker,.ch-label,.n-kind,.ramp-after small,cite,.now-sub){color:#9ca3af}
+html.dark figcaption{color:#9ca3af}
+/* touch targets: every pagination dot is at least 24px wide */
+button.dot{min-width:24px}
+/* chapter panels can take keyboard focus (so their content can be scrolled and read) */
+.fs-track:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:8px}
+/* swipe rows take keyboard focus only while they actually scroll (set in script) */
+.swipe-focus:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:8px}
+/* pagination dots: each button is a 24px target; the visible dot is drawn inside it */
+.sap-pager,.sh-pager{gap:0!important}
+button.sap-pip,button.sh-pip{width:24px!important;height:24px!important;min-width:24px;background:none!important;display:inline-flex;align-items:center;justify-content:center;padding:0}
+button.sap-pip[aria-current=true],button.sh-pip[aria-current=true]{width:32px!important}
+button.sap-pip::before,button.sh-pip::before{content:none!important}
+button.sap-pip::after,button.sh-pip::after{content:"";display:block;width:.5rem;height:.5rem;border-radius:9999px;background:#9ca3af;transition:width .3s ease,background-color .3s ease}
+button.sap-pip[aria-current=true]::after,button.sh-pip[aria-current=true]::after{width:1.5rem;background:#111827}
+.dark button.sap-pip::after,.dark button.sh-pip::after{background:#4b5563}
+.dark button.sap-pip[aria-current=true]::after,.dark button.sh-pip[aria-current=true]::after{background:#fff}
+.ba-pager button.sap-pip::after{background:#4b5563}
+.ba-pager button.sap-pip[aria-current=true]::after{background:#fff}
+
+/* ===== Button system: 2 sizes (sm, lg) x primary / secondary / ghost (+ icon).
+   Every button hovers the same way: a color shift only, no movement, no shadow change. ===== */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;border-radius:9999px;border:1px solid transparent;font-weight:600;line-height:1.25;white-space:nowrap;text-decoration:none;cursor:pointer;box-shadow:none;transform:none;transition:background-color .2s ease,border-color .2s ease,color .2s ease}
+.btn.hidden{display:none}
+@media (min-width:768px){.btn.md\:inline-flex{display:inline-flex}}
+.btn-sm{padding:.5rem 1.125rem;font-size:.875rem}
+.btn-lg{padding:.875rem 2rem;font-size:1rem}
+.btn-icon{padding:.5rem;border-radius:9999px}
+.btn:focus-visible{outline:2px solid #1d1d1f;outline-offset:3px}
+.dark .btn:focus-visible,.btn.on-dark:focus-visible{outline-color:#fff}
+.btn-primary{background:#1d1d1f;color:#fff}
+.btn-primary:hover{background:#48484a}
+.dark .btn-primary,.btn-primary.on-dark{background:#f5f5f7;color:#111}
+.dark .btn-primary:hover,.btn-primary.on-dark:hover{background:#d1d5db}
+.btn-secondary{background:#fff;border-color:#d1d5db;color:#111827}
+.btn-secondary:hover{background:#e5e7eb;border-color:#9ca3af}
+.dark .btn-secondary,.btn-secondary.on-dark{background:rgb(255 255 255 / .08);border-color:rgb(255 255 255 / .25);color:#fff}
+.dark .btn-secondary:hover,.btn-secondary.on-dark:hover{background:#3a3a3c;border-color:rgb(255 255 255 / .45)}
+.btn-ghost{background:transparent;color:#374151;font-weight:500}
+.btn-ghost:hover{background:#e5e7eb;color:#111827}
+.dark .btn-ghost{color:#d1d5db}
+.dark .btn-ghost:hover{background:#3a3a3c;color:#fff}
+/* round arrow buttons use the same hover as secondary */
+.wk-arrows button:hover:not(:disabled),.fs-pager button.fs-prev:hover:not(:disabled),.fs-pager button.fs-next:hover:not(:disabled){background:#e5e7eb;color:#111827}
+.dark .wk-arrows button:hover:not(:disabled),.dark .fs-pager button.fs-prev:hover:not(:disabled),.dark .fs-pager button.fs-next:hover:not(:disabled){background:#3a3a3c;color:#fff}
+
+/* magnetic buttons */
+.magnet{display:inline-flex;align-items:center;gap:.5rem;transform:translate(var(--mx,0),var(--my,0));transition:transform .35s var(--ease-out),box-shadow .3s,background-color .3s}
+
+/* case study imagery: hover */
+.cs-frame{transition:box-shadow .7s var(--ease-out)}
+.group:hover .cs-frame{box-shadow:0 40px 80px -30px rgb(0 0 0 / .35)}
+.cs-img{transition:transform 1.1s var(--ease-out)}
+.group:hover .cs-img{transform:scale(1.05)}
+.gap-logo{transition:transform 1.1s var(--ease-out)}
+.group:hover .gap-logo{transform:translate(-50%,-50%) scale(.96)}
+.cs-pill{transition:background-color .3s,transform .5s var(--ease-out)}
+.group:hover .cs-pill{background:rgb(0 0 0 / .62);transform:translateY(-4px)}
+.ic{transition:transform .5s var(--ease-out)}
+.outcome:hover .ic,.exp-card:hover .ic{transform:rotate(-8deg) scale(1.08)}
+.exp-card,.now-card{transition:transform .5s var(--ease-out),box-shadow .5s,border-color .3s}
+.exp-card:hover,.now-card:hover{transform:translateY(-6px)}
+
+/* filter transitions */
+.case{transition:opacity .45s var(--ease-out),transform .45s var(--ease-out)}
+.case.is-leaving{opacity:0;transform:translateY(16px)}
+.case[hidden]{display:none}
+
+/* now carousel: full-bleed like the original */
+.now-track{margin-left:calc(50% - 50vw);width:100vw;padding-left:max(24px,calc(50vw - 50% + 0px));padding-right:max(24px,calc(50vw - 50%))}
+@media (min-width:80rem){.now-track{padding-left:calc(50vw - 40rem + 2rem);padding-right:calc(50vw - 40rem + 2rem)}}
+
+/* skater: idle glide */
+.skater{transform-origin:45% 98%;animation:glide 5.5s var(--ease-io) infinite}
+@keyframes glide{0%,100%{transform:rotate(-2.5deg) translateX(-6px)}50%{transform:rotate(2.5deg) translateX(10px)}}
+
+/* scroll-driven reveals. Without support, everything simply stays visible. */
+@supports (animation-timeline: view()){
+  @keyframes reveal{from{opacity:0;transform:translateY(48px)}to{opacity:1;transform:none}}
+  @keyframes unclip{from{clip-path:inset(7% 5% 7% 5% round 48px);transform:scale(.97)}to{clip-path:inset(0 0 0 0 round 24px);transform:none}}
+  @keyframes parallax{from{transform:scale(1.14) translateY(-4%)}to{transform:scale(1.04) translateY(4%)}}
+  @keyframes slideL{from{opacity:0;transform:translateX(56px)}to{opacity:1;transform:none}}
+  @keyframes skateIn{from{opacity:0;translate:120px 0}to{opacity:1;translate:0 0}}
+  @keyframes track{from{letter-spacing:.06em;opacity:.2}to{letter-spacing:-.025em;opacity:1}}
+
+  .rv-head{animation:reveal linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry 5% cover 28%}
+  .big-head{animation-name:track}
+  .cs-frame{animation:unclip linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry 0% cover 40%}
+  .cs-parallax{animation:parallax linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:cover 0% cover 100%}
+  .cs-copy{animation:reveal linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry 0% cover 25%}
+  .outcome{animation:slideL linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry calc(var(--i) * 12%) cover calc(18% + var(--i) * 5%)}
+  #now{view-timeline-name:--now;view-timeline-inset:0% calc(25% + var(--foot, 0px))}
+  .now-card{animation:slideL linear both;animation-timeline:--now;animation-range:entry calc(5% + var(--i) * 6%) cover calc(30% + var(--i) * 4%)}
+  .exp-card{animation:reveal linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry calc(var(--i) * 6%) cover calc(22% + var(--i) * 3%)}
+  .skater-wrap{animation:skateIn linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry 0% cover 35%}
+
+  /* case study page */
+  @keyframes fillX{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+  @keyframes growY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+  @keyframes pop{from{opacity:0;transform:scale(.6)}to{opacity:1;transform:none}}
+  @keyframes slideR{from{opacity:0;transform:translateX(-56px)}to{opacity:1;transform:none}}
+  @keyframes heroOut{to{transform:scale(1.08) translateY(6%);filter:brightness(.8)}}
+  .rv{animation:reveal linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry calc(var(--i,0) * 6%) cover calc(24% + var(--i,0) * 3%)}
+  .quote{position:relative}
+  .quote::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:currentColor;transform-origin:50% 0;animation:growY linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry 10% cover 35%}
+  .chip{animation:pop linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry calc(var(--i,0) * 4%) cover calc(20% + var(--i,0) * 3%)}
+  .from-left{animation:slideR linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry 0% cover 30%}
+  .from-right{animation:slideL linear both;animation-timeline:view(block 0% calc(25% + var(--foot, 0px)));animation-range:entry 0% cover 30%}
+  .steps{view-timeline-name:--steps;view-timeline-inset:0% calc(25% + var(--foot, 0px));position:relative}
+  .steps-line{position:absolute;left:-14px;top:24px;bottom:24px;width:2px;background:currentColor;opacity:.5;transform-origin:50% 0;animation:growY linear both;animation-timeline:--steps;animation-range:contain 0% contain 100%}
+  .cs-hero-img{animation:heroOut linear both;animation-timeline:scroll(root);animation-range:0 70vh}
+}
+@media (max-width:63.99rem){.steps-line{display:none}}
+.cs-hero-img{transform-origin:50% 30%}
+@media (min-width:48rem){body.cs-page{--foot:110px}}
+.bar-fill{transform-origin:0 50%;transition:transform 1.3s var(--ease-out) .1s}
+.bar-fill.pre{transform:scaleX(0);transition:none}
+@keyframes kenburns{from{scale:1.12}to{scale:1}}
+.cs-hero-wrap{animation:kenburns 2.4s var(--ease-out) both}
+.step{transition:background-color .4s,transform .5s var(--ease-out)}
+.step:hover{transform:translateX(6px)}
+.step .num{transition:color .4s}
+.step:hover .num{color:currentColor}
+.brand-card{transition:transform .5s var(--ease-out),box-shadow .5s}
+.brand-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -24px rgb(0 0 0 / .3);position:relative;z-index:1}
+
+
+/* overview: sticky intro + constraint list that highlights the one in focus */
+.ov-grid{display:grid;gap:3rem}
+@media (min-width:64rem){.ov-grid{grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:5rem;align-items:start}.ov-intro{position:sticky;top:7rem}.ov-intro h2{font-size:clamp(3.5rem,5.6vw,5.5rem);line-height:1.02;letter-spacing:-.03em}}
+.ov-count{margin-top:2.5rem;font-variant-numeric:tabular-nums;font-weight:700;font-size:1rem;letter-spacing:.04em;display:none}
+@media (min-width:64rem){.ov-count{display:block}}
+.ov-now{display:inline-block;font-size:3rem;line-height:1;transition:transform .5s var(--ease-out)}
+.ov-of{color:rgb(107 114 128)}
+.ov-list{list-style:none;margin:0;padding:0}
+.ov-item{position:relative;display:grid;grid-template-columns:1fr;gap:.75rem;padding:2rem 0 2rem 1.25rem;border-top:1px solid rgb(0 0 0 / .1)}
+.dark .ov-item{border-top-color:rgb(255 255 255 / .12)}
+.ov-item:first-child{border-top:0;padding-top:0}
+.ov-item:first-child::before{top:0}
+.ov-item:last-child{padding-bottom:0}
+.ov-item:last-child::before{bottom:0}
+.ov-item::before{content:"";position:absolute;left:0;top:2rem;bottom:2rem;width:3px;border-radius:3px;background:currentColor;transform:scaleY(0);transform-origin:50% 0;transition:transform .6s var(--ease-out)}
+.ov-num{font-size:2.25rem;line-height:1;font-weight:700;font-variant-numeric:tabular-nums;color:transparent;-webkit-text-stroke:1.5px rgb(156 163 175);transition:color .5s var(--ease-out),-webkit-text-stroke-color .5s}
+.ov-body{transition:transform .6s var(--ease-out)}
+.ov-item.is-active::before,.ov-static .ov-item::before{transform:scaleY(1)}
+.ov-item.is-active .ov-num,.ov-static .ov-num{color:currentColor;-webkit-text-stroke-color:currentColor}
+.ov-item.is-active .ov-body{transform:translateX(6px)}
+.ov-item h3{font-size:1.25rem;line-height:1.3;margin-bottom:.5rem}
+.ov-item p{font-size:1rem;line-height:1.6}
+
+
+/* case study key numbers: one hero figure + four supporting figures, hairline dividers */
+.sx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));margin-bottom:4rem;border-top:1px solid rgb(0 0 0 / .12)}
+.dark .sx{border-top-color:rgb(255 255 255 / .14)}
+.sx-cell{padding:1.75rem 1.25rem 1.75rem 0;border-bottom:1px solid rgb(0 0 0 / .12);display:flex;flex-direction:column;gap:.35rem;min-width:0}
+.dark .sx-cell{border-bottom-color:rgb(255 255 255 / .14)}
+.sx-cell.hero{grid-column:1 / -1}
+@media (max-width:63.99rem){.sx{border-top:0}.sx-cell.hero{padding-top:0}.sx-cell:nth-child(4),.sx-cell:nth-child(5){border-bottom:0;padding-bottom:0}}
+.sx-num{font-weight:700;letter-spacing:-.04em;line-height:.95;font-variant-numeric:tabular-nums;font-size:clamp(2.75rem,6vw,4.5rem);white-space:nowrap}
+.sx-cell.hero .sx-num{font-size:clamp(6rem,16vw,12rem);letter-spacing:-.06em}
+.sx-plus{font-size:.7em;letter-spacing:-.02em;margin-left:.06em;vertical-align:.38em;opacity:.55}
+.sx-lab{font-weight:600;font-size:1.05rem;margin-top:.5rem}
+.sx-sub{font-size:.95rem}
+@media (min-width:64rem){
+  .sx{grid-template-columns:minmax(0,1.3fr) repeat(2,minmax(0,1fr));border-top:0}
+  .sx-cell{padding:2rem 2rem}
+  .sx-cell.hero{grid-column:1;grid-row:1 / span 2;padding-left:0;justify-content:flex-end;border-bottom:0;border-right:1px solid rgb(0 0 0 / .12)}
+  .dark .sx-cell.hero{border-right-color:rgb(255 255 255 / .14)}
+  .sx-cell:nth-child(2),.sx-cell:nth-child(3){border-bottom:1px solid rgb(0 0 0 / .12)}
+  .sx-cell:nth-child(4),.sx-cell:nth-child(5){border-bottom:0}
+  .sx-cell:nth-child(3),.sx-cell:nth-child(5){border-left:1px solid rgb(0 0 0 / .12)}
+  .dark .sx-cell:nth-child(3),.dark .sx-cell:nth-child(5){border-left-color:rgb(255 255 255 / .14)}
+}
+
+
+/* challenge / solution: two columns on desktop, swipeable cards with dots on phones */
+.cs-swipe{display:grid;gap:3rem;position:relative}
+@media (min-width:48rem){.cs-swipe{grid-template-columns:repeat(2,minmax(0,1fr))}.cs-dots{display:none}}
+@media (max-width:47.99rem){
+  .cs-swipe{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-1.5rem;padding-inline:1.5rem;scroll-padding-inline:1.5rem;scrollbar-width:none;padding-block:.25rem}
+  .cs-swipe::-webkit-scrollbar{display:none}
+  .cs-swipe>div{flex:0 0 85%;scroll-snap-align:center;padding:1.5rem;border-radius:1rem;background:#f9fafb;border:1px solid #e5e7eb}
+  .dark .cs-swipe>div{background:#1f2937;border-color:#374151}
+}
+
+
+/* full story: native disclosure sections, so the skim path stays short */
+:root{interpolate-size:allow-keywords}
+.fs-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1.5rem;margin-bottom:2.5rem}
+.fs-toggle{font-weight:600;font-size:.95rem;padding:.6rem 1.1rem;border-radius:999px;border:1px solid currentColor;background:transparent;cursor:pointer;transition:background-color .3s,color .3s}
+.fs-toggle:hover{background:rgb(0 0 0 / .06)}
+.dark .fs-toggle:hover{background:rgb(255 255 255 / .1)}
+.fs{border-top:1px solid rgb(0 0 0 / .12)}
+.fs:last-child{border-bottom:1px solid rgb(0 0 0 / .12)}
+.dark .fs,.dark .fs:last-child{border-color:rgb(255 255 255 / .14)}
+.fs-sum{list-style:none;display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:1.5rem;padding:1.75rem 0;cursor:pointer;border-radius:.5rem}
+.fs-sum::-webkit-details-marker{display:none}
+.fs-text{display:flex;flex-direction:column;gap:.35rem;transition:transform .5s var(--ease-out)}
+.fs-sum:hover .fs-text{transform:translateX(6px)}
+.fs-title{font-size:clamp(1.5rem,3vw,2.25rem);font-weight:700;letter-spacing:-.02em;line-height:1.15}
+.fs-line{font-size:1.05rem}
+.fs-icon{position:relative;width:2.75rem;height:2.75rem;border-radius:50%;border:1px solid currentColor;flex:none;transition:transform .5s var(--ease-out),background-color .3s,color .3s}
+.fs-icon::before,.fs-icon::after{content:"";position:absolute;left:50%;top:50%;width:14px;height:2px;margin:-1px 0 0 -7px;background:currentColor;border-radius:2px}
+.fs-icon::after{transform:rotate(90deg)}
+.fs[open] .fs-icon{transform:rotate(135deg)}
+.fs-sum:hover .fs-icon{background:currentColor}
+.fs-sum:hover .fs-icon::before,.fs-sum:hover .fs-icon::after{background:#fff}
+.dark .fs-sum:hover .fs-icon::before,.dark .fs-sum:hover .fs-icon::after{background:#000}
+.fs::details-content{block-size:0;overflow-y:clip;transition:block-size .6s var(--ease-out),content-visibility .6s allow-discrete}
+.fs[open]::details-content{block-size:auto}
+.fs-body{padding:.5rem 0 3rem}
+.fs[open] .fs-body{animation:rise .7s var(--ease-out) both}
+.fs-dark{border-radius:1.5rem;padding:2rem}
+@media (min-width:48rem){.fs-dark{padding:3rem}}
+
+/* process phases: horizontal cards with dots and arrows */
+.proc{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;position:relative;padding-block:.25rem;outline-offset:4px}
+.proc::-webkit-scrollbar{display:none}
+.proc-card{flex:0 0 min(85%,380px);scroll-snap-align:start;display:flex;flex-direction:column;padding:1.75rem;border-radius:1rem;transition:transform .5s var(--ease-out),box-shadow .5s}
+.proc-card:hover{transform:translateY(-4px);box-shadow:0 20px 40px -24px rgb(0 0 0 / .3)}
+.proc-num{font-weight:700;font-size:2.25rem;line-height:1;margin-bottom:1rem;color:transparent;-webkit-text-stroke:1.5px rgb(156 163 175);font-variant-numeric:tabular-nums}
+.proc-nav{display:flex;align-items:center;justify-content:space-between;margin-top:.75rem}
+.proc-arrows{display:flex;gap:.5rem}
+.proc-arrows button{width:2.75rem;height:2.75rem;border-radius:50%;border:1px solid currentColor;background:transparent;color:inherit;font-size:1.1rem;cursor:pointer;transition:background-color .3s,color .3s,opacity .3s}
+.proc-arrows button:hover:not(:disabled){background:currentColor}
+.proc-arrows button:disabled{opacity:.3;cursor:default}
+@media (max-width:47.99rem){.proc-arrows{display:none}}
+
+
+/* full story as slides: labeled chapter tabs, swipeable track, pager below */
+.fs-slider{position:relative}
+.fs-tabs{display:flex;gap:.5rem;overflow-x:auto;scrollbar-width:none;padding:.25rem 0 1.5rem;margin-bottom:1rem;border-bottom:1px solid rgb(0 0 0 / .12)}
+.dark .fs-tabs{border-bottom-color:rgb(255 255 255 / .14)}
+@media (max-width:63.99rem){.fs-tabs{margin-inline:-1.5rem;padding-inline:1.5rem;scroll-padding-inline:1.5rem;border-bottom:0;background:linear-gradient(rgb(0 0 0 / .12),rgb(0 0 0 / .12)) 1.5rem 100% / calc(100% - 3rem) 1px no-repeat}.dark .fs-tabs{background-image:linear-gradient(rgb(255 255 255 / .14),rgb(255 255 255 / .14))}}
+.fs-tabs::-webkit-scrollbar{display:none}
+.fs-tab{flex:none;display:inline-flex;align-items:center;gap:.5rem;padding:.55rem 1rem;border-radius:999px;font-weight:600;font-size:.95rem;border:1px solid rgb(0 0 0 / .15);background:transparent;color:inherit;cursor:pointer;white-space:nowrap;transition:background-color .3s,color .3s,border-color .3s}
+.dark .fs-tab{border-color:rgb(255 255 255 / .2)}
+.fs-tab:hover{border-color:currentColor}
+.fs-tab-n{font-variant-numeric:tabular-nums;opacity:.5;font-size:.8rem}
+.fs-tab[aria-selected="true"]{background:#101828;color:#fff;border-color:#101828}
+.dark .fs-tab[aria-selected="true"]{background:#fff;color:#101828;border-color:#fff}
+.fs-tab[aria-selected="true"] .fs-tab-n{opacity:.7}
+.fs-track{display:flex;align-items:flex-start;column-gap:4rem;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;transition:height .5s var(--ease-out);overscroll-behavior-x:contain}
+.fs-track::-webkit-scrollbar{display:none}
+.fs-slide{flex:0 0 100%;min-width:0;scroll-snap-align:start;scroll-snap-stop:always;padding:2rem 0 1rem}
+.fs-kicker{font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgb(107 114 128);margin-bottom:.5rem}
+.fs-slide-title{font-size:clamp(2rem,4.5vw,3.5rem);font-weight:700;letter-spacing:-.03em;line-height:1.05;margin-bottom:.75rem}
+.fs-slide-line{font-size:1.15rem;max-width:48rem;margin-bottom:2.5rem}
+.fs-slide.is-active .fs-slide-in{animation:rise .7s var(--ease-out) both}
+.fs-slide .rv,.fs-slide .chip,.fs-slide .from-left,.fs-slide .from-right,.fs-slide .quote::before{animation:none!important}
+.fs-slide .ov-intro{position:static}
+.fs-slide .ov-count{display:none}
+.fs-slide .ov-intro h2{display:none}
+.fs-slide .ov-grid{grid-template-columns:1fr}
+.fs-slide .ov-list{display:grid;gap:0 3rem}
+@media (min-width:64rem){.fs-slide .ov-list{grid-template-columns:1fr 1fr}.fs-slide .ov-item:first-child,.fs-slide .ov-item:nth-child(2){border-top:0;padding-top:0}.fs-slide .ov-item:last-child{padding-bottom:2rem}}
+.fs-pager{position:sticky;bottom:calc(var(--foot,0px) + 1rem);z-index:5;display:flex;align-items:center;justify-content:center;gap:.75rem;margin:1.5rem auto 0;width:fit-content;padding:.4rem .6rem;border-radius:999px;background:rgb(255 255 255 / .85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);box-shadow:0 10px 30px -12px rgb(0 0 0 / .25);border:1px solid rgb(0 0 0 / .08)}
+.dark .fs-pager{background:rgb(17 24 39 / .85);border-color:rgb(255 255 255 / .12)}
+.fs-pager button.fs-prev,.fs-pager button.fs-next{width:2.5rem;height:2.5rem;border-radius:50%;border:1px solid currentColor;background:transparent;color:inherit;cursor:pointer;font-size:1rem;transition:background-color .3s,opacity .3s}
+.fs-pager button.fs-prev:hover:not(:disabled),.fs-pager button.fs-next:hover:not(:disabled){background:rgb(0 0 0 / .08)}
+.dark .fs-pager button.fs-prev:hover:not(:disabled),.dark .fs-pager button.fs-next:hover:not(:disabled){background:rgb(255 255 255 / .12)}
+.fs-pager button:disabled{opacity:.3;cursor:default}
+.fs-pos{font-variant-numeric:tabular-nums;font-weight:600;font-size:.9rem;min-width:3.2rem;text-align:center}
+@media (max-width:40rem){.fs-pos{display:none}}
+
+
+/* before / after ledger: one row per dimension, old state struck through, new state lands */
+.ba,.ba-head{--cols:minmax(0,11rem) minmax(0,1fr) 3rem minmax(0,1.15fr)}
+.ba{list-style:none;margin:0;padding:0;color:#fff}
+.ba-head{display:none}
+.ba-row{display:grid;gap:.4rem;padding:1.5rem 0;border-top:1px solid rgb(255 255 255 / .12)}
+.ba-row:first-child{border-top:0;padding-top:0}
+.ba-label{font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgb(156 163 175)}
+.ba-before{color:rgb(156 163 175);font-size:1.05rem}
+.ba-before s{text-decoration-color:rgb(156 163 175 / .9);text-decoration-thickness:1.5px}
+.ba-after{font-size:1.35rem;font-weight:700;letter-spacing:-.01em;line-height:1.3}
+.ba-arrow{display:none;color:rgb(156 163 175)}
+.ba-tag{display:inline-block;margin-right:.5rem;font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.1rem .45rem;border-radius:4px;border:1px solid currentColor;vertical-align:.15em;text-decoration:none;opacity:.8}
+@media (min-width:48rem){
+  .ba-head{display:grid;grid-template-columns:var(--cols);gap:1.5rem;padding-bottom:1rem;margin-bottom:.25rem;border-bottom:1px solid rgb(255 255 255 / .25);font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgb(156 163 175)}
+  .ba-head span:last-child{color:#fff}
+  .ba-row{grid-template-columns:var(--cols);gap:1.5rem;align-items:baseline;padding:1.75rem 0}
+  .ba-row:first-child{border-top:0;padding-top:1.75rem}
+  .ba-arrow{display:block;text-align:center;font-size:1.25rem}
+  .ba-tag{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .ba-after{font-size:1.6rem}
+}
+/* motion: strike draws across the old state, arrow travels, new state rises in */
+.ba-before s{background:linear-gradient(currentColor,currentColor) 0 55%/0 1.5px no-repeat;text-decoration:none;transition:background-size .7s var(--ease-out)}
+.ba-row .ba-after,.ba-row .ba-arrow{transition:opacity .6s var(--ease-out),transform .7s var(--ease-out)}
+.ba-row.pre .ba-after{opacity:0;transform:translateY(14px)}
+.ba-row.pre .ba-arrow{opacity:0;transform:translateX(-10px)}
+.ba-row:not(.pre) .ba-before s{background-size:100% 1.5px}
+.ba-row:not(.pre) .ba-arrow{transition-delay:.25s}
+.ba-row:not(.pre) .ba-after{transition-delay:.4s}
+.ba-row:hover .ba-after{transform:translateX(4px)}
+
+
+/* outcomes: the headline becomes the layout, one word per column with its proof underneath */
+.sap{display:grid;gap:3rem;margin-top:1.5rem}
+.sap-pager{display:none}
+/* phones and tablets: no rule above the chapter count; brand theme cards swipe sideways */
+@media (max-width:63.99rem){
+  .ch-rail>.ch-key{border-top:0;padding-top:0}
+  ul.themes{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;padding-bottom:.25rem}
+  ul.themes::-webkit-scrollbar{display:none}
+  ul.themes>.theme{flex:0 0 84%;min-width:0;scroll-snap-align:start}
+}
+/* phones: three-card rows (e.g. token architecture) swipe sideways too */
+@media (max-width:47.99rem){
+  div.cards3{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;margin-bottom:0;padding-bottom:.25rem}
+  div.cards3::-webkit-scrollbar{display:none}
+  div.cards3>.card3{flex:0 0 84%;min-width:0;scroll-snap-align:start}
+  .cards3-pager{margin-bottom:2rem}
+}
+@media (min-width:48rem){.cards3-pager{display:none!important}}
+/* phones: design-version figures (image + caption) swipe sideways together */
+@media (max-width:47.99rem){
+  div.figs{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;margin:0 -1.5rem;padding-inline:1.5rem;scroll-padding-inline:1.5rem}
+  div.figs::-webkit-scrollbar{display:none}
+  div.figs>.fig{flex:0 0 78%;min-width:0;scroll-snap-align:start}
+}
+/* swipe rows always run to the screen edges, while their content keeps the page margins */
+@media (max-width:63.99rem){
+  .fs-slider .fs-track{margin-inline:-1.5rem}
+  .fs-track>.fs-slide{padding-left:1.5rem;padding-right:1.5rem}
+  ul.themes,div.sap{margin-inline:-1.5rem;padding-inline:1.5rem;scroll-padding-inline:1.5rem}
+}
+@media (max-width:47.99rem){
+  div.cards3,ol.ba{margin-inline:-1.5rem;padding-inline:1.5rem;scroll-padding-inline:1.5rem}
+}
+@media (max-width:63.99rem){
+  .sap{display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+  .sap::-webkit-scrollbar{display:none}
+  .sap>.sap-col{flex:0 0 100%;min-width:0;scroll-snap-align:start;padding-right:0}
+  .sap-pager{display:flex;gap:.5rem;align-items:center;margin-top:1.75rem}
+  .sap-pip{position:relative;width:.5rem;height:.5rem;padding:0;border:0;border-radius:9999px;background:#9ca3af;cursor:pointer;transition:width .3s ease,background-color .3s ease}
+  .sap-pip::before{content:"";position:absolute;inset:-18px -4px}
+  .sap-pip[aria-current=true]{width:1.5rem;background:#111827}
+  .dark .sap-pip{background:#4b5563}
+  .dark .sap-pip[aria-current=true]{background:#fff}
+  .sap>.sap-col.pre .sap-word,.sap>.sap-col.pre .sap-lede,.sap>.sap-col.pre .sap-fact{transform:translateX(32px)}
+  /* the drawn underline ends in an arrowhead on phones, hinting at the swipe */
+  .sap-word::before{content:"";position:absolute;right:1px;bottom:-4.5px;width:12px;height:12px;border-top:3px solid currentColor;border-right:3px solid currentColor;transform:rotate(45deg);transition:opacity .25s ease}
+  .sap .sap-col:not(.pre) .sap-word::before{transition-delay:1.2s}
+  .sap>.sap-col.pre .sap-word::before{opacity:0;transition:none}
+}
+/* before / after on phones: two swipeable panels of three rows, dots below */
+@media (max-width:47.99rem){
+  .ba{display:grid;grid-auto-flow:column;grid-template-rows:repeat(3,auto);grid-auto-columns:100%;column-gap:1.5rem;align-content:start;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain}
+  .ba::-webkit-scrollbar{display:none}
+  .ba>.ba-row:nth-child(3n+1){scroll-snap-align:start;border-top:0;padding-top:0}
+  .ba>.ba-row.pre .ba-after{transform:translateX(24px)}
+  .ba-pager .sap-pip{background:#4b5563}
+  .ba-pager .sap-pip[aria-current=true]{background:#fff}
+}
+@media (min-width:48rem){.ba-pager{display:none!important}}
+@media (min-width:64rem){.sap{grid-template-columns:repeat(3,minmax(0,1fr));gap:0}.sap-col+.sap-col{border-left:1px solid rgb(0 0 0 / .12);padding-left:2.5rem}.dark .sap-col+.sap-col{border-left-color:rgb(255 255 255 / .14)}.sap-col{padding-right:2.5rem}}
+.sap-word{font-size:clamp(3rem,6.2vw,5.75rem);font-weight:700;letter-spacing:-.045em;line-height:.95;position:relative;padding-bottom:1.25rem;margin-bottom:1.25rem}
+.sap-word::after{content:"";position:absolute;left:0;bottom:0;width:100%;height:3px;background:currentColor;transform-origin:left center;transition:transform 1.1s cubic-bezier(.65,0,.35,1)}
+.sap-dot{color:rgb(156 163 175)}
+.sap-lede{font-size:1.1rem;line-height:1.55;margin-bottom:2rem;max-width:26rem}
+.sap-facts{list-style:none;margin:0;padding:0;display:grid;gap:1.5rem}
+.sap-fact{display:grid;gap:.25rem}
+.sap-num{font-size:2.75rem;font-weight:700;letter-spacing:-.04em;line-height:1;font-variant-numeric:tabular-nums}
+.sap-lab{font-size:1rem}
+.sap-col .sap-word,.sap-col .sap-lede,.sap-col .sap-fact{transition:opacity .7s var(--ease-out),transform .8s var(--ease-out),filter .7s var(--ease-out)}
+.sap.pre .sap-word,.sap-col.pre .sap-word{opacity:0;transform:translateY(.35em);filter:blur(8px)}
+.sap.pre .sap-word::after,.sap-col.pre .sap-word::after{transform:scaleX(0)}
+.sap.pre .sap-lede,.sap.pre .sap-fact,.sap-col.pre .sap-lede,.sap-col.pre .sap-fact{opacity:0;transform:translateY(16px)}
+.sap .sap-col .sap-word{transition-delay:calc(var(--i) * 260ms)}
+.sap .sap-col .sap-word::after{transition-delay:calc(var(--i) * 260ms + 450ms)}
+.sap .sap-col .sap-lede{transition-delay:calc(var(--i) * 260ms + 350ms)}
+.sap .sap-col .sap-fact:nth-child(1){transition-delay:calc(var(--i) * 260ms + 480ms)}
+.sap .sap-col .sap-fact:nth-child(2){transition-delay:calc(var(--i) * 260ms + 600ms)}
+@media (max-width:63.99rem){.sap .sap-col *{transition-delay:0s!important}}
+/* resetting to the hidden state is instant, so a replay always starts from scratch */
+.sap-col.pre .sap-word,.sap-col.pre .sap-lede,.sap-col.pre .sap-fact,.sap-col.pre .sap-word::after{transition:none!important}
+
+
+/* challenge / solution: text is always readable; a marker sweeps across the key phrases,
+   gray for the problem, blue for the fix, and an arrow carries one column into the next */
+.cs-cs{position:relative}
+.cs-n{font-size:clamp(3.5rem,7vw,5.5rem);font-weight:700;line-height:1;letter-spacing:-.05em;font-variant-numeric:tabular-nums;color:transparent;-webkit-text-stroke:1.5px rgb(156 163 175);margin-bottom:.75rem;transition:color .8s var(--ease-out),-webkit-text-stroke-color .8s}
+.cs-cs.go .cs-n{-webkit-text-stroke-color:#101828}
+.dark .cs-cs.go .cs-n{-webkit-text-stroke-color:#fff}
+.cs-cs h2{position:relative;display:inline-block}
+.cs-cs h2::after{content:"";position:absolute;left:0;right:0;bottom:-.3rem;height:2px;background:currentColor;transform-origin:0 50%;transform:scaleX(0);transition:transform .8s var(--ease-out) .15s}
+.cs-cs.go h2::after{transform:scaleX(1)}
+.cs-cs.pre h2::after,.cs-cs.pre .hl{transition:none}
+.hl{color:inherit;background-color:transparent;padding:0 .12em;margin:0 -.12em;border-radius:.2em;-webkit-box-decoration-break:clone;box-decoration-break:clone;background-repeat:no-repeat;background-position:0 100%;background-size:0% 100%;transition:background-size .9s var(--ease-out),color .6s;transition-delay:calc(.35s + var(--k) * .45s)}
+.is-challenge .hl{background-image:linear-gradient(#e5e7eb,#e5e7eb)}
+.is-solution .hl{background-image:linear-gradient(var(--hl-l,#ce0c88),var(--hl-l,#ce0c88))}
+.dark .is-challenge .hl{background-image:linear-gradient(#374151,#374151)}
+.dark .is-solution .hl{background-image:linear-gradient(var(--hl-d,#463c8f),var(--hl-d,#463c8f))}
+.cs-cs.go .hl{background-size:100% 100%;color:#101828}
+.is-solution.go .hl{color:var(--hl-tl,#fff)}
+.dark .is-solution.go .hl{color:var(--hl-td,#fff)}
+.dark .cs-cs.go .hl{color:#fff}
+.is-solution.go .hl{transition-delay:calc(1.4s + var(--k) * .45s)}
+.is-solution.go h2::after{transition-delay:1.2s}
+.is-solution.go .cs-n{transition-delay:1.1s}
+@media (min-width:48rem){
+  .cs-swipe{gap:6rem}
+  .is-challenge::after{content:"→";position:absolute;right:-4.1rem;top:-.35rem;font-size:2rem;color:rgb(156 163 175);opacity:0;transform:translateX(-14px);transition:opacity .6s var(--ease-out) .9s,transform .8s var(--ease-out) .9s}
+  .is-challenge.go::after{opacity:1;transform:none}
+  .is-challenge.pre::after{transition:none}
+}
+/* desktop hover: the underline follows the pointer to whichever column it's over, and the
+   arrow turns to point at that column; the other heading's underline retracts */
+@media (min-width:48rem) and (hover:hover){
+  .cs-swipe .cs-cs h2::after{transition:transform .5s var(--ease-out)}
+  .cs-swipe .cs-cs.go h2::after{transition-delay:0s}
+  .cs-swipe:has(.is-challenge:hover) .is-solution h2::after,
+  .cs-swipe:has(.is-solution:hover) .is-challenge h2::after{transform:scaleX(0);transform-origin:100% 50%}
+  .cs-swipe:has(.is-solution:hover) .is-challenge h2::after{transform-origin:100% 50%}
+  .cs-swipe:has(.is-challenge:hover) .is-solution h2::after{transform-origin:0 50%}
+  .is-challenge.go::after{transition:opacity .6s var(--ease-out),transform .5s var(--ease-out),color .3s}
+  .cs-swipe:has(.is-challenge:hover) .is-challenge.go::after{transform:rotate(180deg);color:currentColor}
+  .cs-swipe:has(.is-solution:hover) .is-challenge.go::after{transform:translateX(6px);color:currentColor}
+  .cs-swipe:has(.cs-cs:hover) .cs-cs:not(:hover) .hl{opacity:.6;transition:opacity .4s}
+  .cs-cs .hl{transition-property:background-size,color,opacity}
+  .cs-swipe:hover .cs-cs .hl,.cs-swipe:hover .cs-cs.go .hl{transition-delay:0s}
+}
+@media (max-width:47.99rem){.is-solution.go .hl{transition-delay:calc(.35s + var(--k) * .45s)}.is-solution.go h2::after{transition-delay:.15s}.is-solution.go .cs-n{transition-delay:0s}}
+
+/* full story chapters v2: rail on the left, chapter-specific layout on the right */
+.ch{display:grid;gap:2rem;padding-top:1rem}
+@media (min-width:64rem){.ch{grid-template-columns:minmax(0,4fr) minmax(0,8fr);gap:4.5rem}}
+.ch-rail{display:flex;flex-direction:column;gap:.5rem;min-width:0}
+.ch-num{font-size:clamp(4rem,8vw,7rem);font-weight:700;line-height:.9;letter-spacing:-.05em;font-variant-numeric:tabular-nums;margin-bottom:.5rem;
+  /* outline numerals: the stroke is painted first and the fill (matched to the section background) on top,
+     so the overlapping contours inside system-font glyphs don't show as stray lines */
+  color:#f9fafb;-webkit-text-stroke:3px rgb(156 163 175);paint-order:stroke fill}
+.dark .ch-num{color:#1f2937}
+.ch-title{font-size:clamp(1.9rem,3.4vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.05}
+.ch-sum{font-size:1.05rem;line-height:1.55}
+.ch-key{margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid rgb(0 0 0 / .12);display:flex;flex-direction:column;gap:.15rem}
+.dark .ch-key{border-top-color:rgb(255 255 255 / .14)}
+.ch-key-n{font-size:2.75rem;font-weight:700;letter-spacing:-.04em;line-height:1}
+.ch-key-l{font-size:.95rem}
+@media (max-width:63.99rem){.ch-num{font-size:3.5rem}.ch-key{flex-direction:row;align-items:baseline;gap:.6rem}.ch-key-n{font-size:2rem}}
+.ch-main{min-width:0}
+.ch-lede{font-size:1.2rem;line-height:1.6;max-width:44rem;margin-bottom:2rem}
+.ch-label{font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgb(107 114 128);margin-bottom:.75rem}
+.ch-quote{font-size:clamp(1.4rem,2.4vw,1.9rem);font-weight:700;font-style:italic;line-height:1.3;letter-spacing:-.01em;border-left:4px solid currentColor;padding:.25rem 0 .25rem 1.25rem;margin:0 0 2.5rem;max-width:46rem}
+.ch-quote-xl{font-size:clamp(1.8rem,3.4vw,2.75rem);border-left:0;padding:0;font-style:normal;letter-spacing:-.025em}
+.ch-note{margin-top:2rem;padding:1.25rem 1.5rem;border-radius:1rem;background:#fff;border:1px solid rgb(0 0 0 / .08);max-width:46rem;line-height:1.6}
+.dark .ch-note{background:#111827;border-color:rgb(255 255 255 / .12)}
+.ch-src{font-size:.85rem;margin-top:1.25rem}
+.ch-big{font-size:clamp(1.8rem,3.4vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:2rem;max-width:44rem}
+.ch-record{max-width:46rem;padding:1.5rem;border-radius:1rem;border:1px solid rgb(0 0 0 / .12);background:#fff;line-height:1.6;color:rgb(55 65 81)}
+.dark .ch-record{background:#111827;border-color:rgb(255 255 255 / .14);color:rgb(209 213 219)}
+
+/* constraints: an editorial index, keyword left, detail right */
+.ch-rows{list-style:none;margin:0;padding:0}
+.ch-row{display:grid;gap:.5rem;padding:1.5rem 0;border-top:1px solid rgb(0 0 0 / .12)}
+.dark .ch-row{border-top-color:rgb(255 255 255 / .14)}
+@media (min-width:48rem){.ch-row{grid-template-columns:minmax(0,15rem) minmax(0,1fr);gap:2rem;align-items:baseline}}
+.ch-row-k{font-size:1.35rem;font-weight:700;letter-spacing:-.015em;line-height:1.25}
+.ch-row-v{line-height:1.6}
+
+/* how it works: a layer stack, widest at the base */
+.layers{list-style:none;margin:0;padding:0;display:grid;gap:.75rem}
+.layer{position:relative;padding:1.25rem 1.5rem;border-radius:1rem;background:#fff;border:1px solid rgb(0 0 0 / .1);border-left-width:6px}
+.dark .layer{background:#111827;border-color:rgb(255 255 255 / .14)}
+.layer-t{border-left-color:#d97706!important}.layer-o{border-left-color:#16a34a!important}.layer-a{border-left-color:#2563eb!important}
+@media (min-width:48rem){.layer-t{margin-inline:12%}.layer-o{margin-inline:6%}}
+.layer-top{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;margin-bottom:.4rem}
+.layer-name{font-size:1.3rem;font-weight:700;letter-spacing:-.015em}
+.layer-owner{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;border:1px solid currentColor;opacity:.7}
+.layer-chips{list-style:none;margin:.75rem 0 0;padding:0;display:flex;flex-wrap:wrap;gap:.4rem}
+.layer-chips li{font-size:.82rem;padding:.2rem .65rem;border-radius:999px;background:rgb(0 0 0 / .05)}
+.dark .layer-chips li{background:rgb(255 255 255 / .08)}
+
+/* process: a timeline with a drawn spine */
+.tl{list-style:none;margin:0;padding:0;position:relative}
+.tl::before{content:"";position:absolute;left:1.25rem;top:1rem;bottom:1rem;width:2px;background:rgb(0 0 0 / .12)}
+.dark .tl::before{background:rgb(255 255 255 / .16)}
+.tl-step{position:relative;display:grid;grid-template-columns:2.5rem minmax(0,1fr);gap:1.25rem;padding-bottom:2rem}
+.tl-step:last-child{padding-bottom:0}
+.tl-dot{position:relative;z-index:1;width:2.5rem;height:2.5rem;border-radius:50%;display:grid;place-items:center;font-size:.8rem;font-weight:700;font-variant-numeric:tabular-nums;background:#101828;color:#fff}
+.dark .tl-dot{background:#fff;color:#101828}
+.tl-title{font-size:1.2rem;font-weight:700;letter-spacing:-.01em;margin:.4rem 0 .4rem}
+.tl-body p{line-height:1.6;max-width:44rem}
+
+/* theming: one tile per theme with real swatches and a themed button */
+.themes{list-style:none;margin:0;padding:0;display:grid;gap:1rem}
+@media (min-width:40rem){.themes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.theme{padding:1.25rem;border-radius:1rem;background:#fff;border:1px solid rgb(0 0 0 / .1);transition:transform .5s var(--ease-out),box-shadow .5s}
+.dark .theme{background:#111827;border-color:rgb(255 255 255 / .14)}
+.theme:hover{transform:translateY(-4px);box-shadow:0 20px 40px -24px rgb(0 0 0 / .3)}
+.theme-sw{display:flex;height:3.25rem;border-radius:.6rem;overflow:hidden;margin-bottom:1rem;border:1px solid rgb(0 0 0 / .08)}
+.theme-sw span{flex:1;transform-origin:0 50%}
+.theme-sw span:first-child{flex:2}
+.theme-name{font-size:1.6rem;font-weight:700;letter-spacing:-.01em;line-height:1.15}
+.theme-logo{display:flex;align-items:center;justify-content:flex-start;height:2.75rem;margin:.35rem 0 .4rem}
+.dark .theme-logo img{filter:brightness(0) invert(1)}
+.theme-logo .logo-d{display:none}
+.dark .theme-logo:has(.logo-d) .logo-l{display:none}
+.dark .theme-logo .logo-d{display:block;filter:none}
+.theme-logo img{display:block;height:100%;width:auto;max-width:100%;object-fit:contain;object-position:left center;transform-origin:0 50%;transition:transform .5s var(--ease-out)}
+.theme-logo-text{font-size:1.6rem;font-weight:700;letter-spacing:-.02em}
+.theme:hover .theme-logo img{transform:scale(1.04)}
+.theme-font{font-size:.9rem;margin:.15rem 0 1rem}
+.theme-btn{display:inline-block;font-size:.85rem;font-weight:600;padding:.5rem .95rem;border-radius:999px;border:1px solid rgb(0 0 0 / .08)}
+
+/* chapter entrance: rail first, then the content in order */
+.fs-slide .st{opacity:1}
+.fs-slide.is-active .ch-rail{animation:rise .7s var(--ease-out) both}
+.fs-slide.is-active .st{animation:rise .7s var(--ease-out) both;animation-delay:calc(.12s + var(--i,0) * 90ms)}
+@keyframes swIn{from{transform:scaleX(0)}to{transform:none}}
+.fs-slide.is-active .theme-sw span{animation:swIn .8s var(--ease-out) both;animation-delay:calc(.4s + var(--i,0) * 90ms)}
+.fs-slide.is-active .tl::before{transform-origin:50% 0;animation:growY 1.4s var(--ease-out) both .2s}
+@keyframes growY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+
+
+/* merged chapters: a second part inside a chapter */
+.ch-sub{margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid rgb(0 0 0 / .12)}
+.dark .ch-sub{border-top-color:rgb(255 255 255 / .14)}
+.ch-sub-label{font-size:1.5rem;font-weight:700;letter-spacing:-.02em;margin-bottom:1rem}
+
+/* reflection: the closing note, below the story slides */
+.refl{padding-block:5rem}
+@media (min-width:48rem){.refl{padding-block:7rem}}
+.refl-grid{display:grid;gap:2.5rem}
+@media (min-width:64rem){.refl-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:5rem;align-items:start}.refl-side{padding-top:2.1rem}}
+.refl-big{font-size:clamp(2.25rem,5vw,4.25rem);font-weight:700;letter-spacing:-.04em;line-height:1.08;text-wrap:balance;margin:0;padding-bottom:.1em}
+.refl-quote{padding-left:1.25rem}
+.refl-quote p{font-size:clamp(1.25rem,2vw,1.6rem);font-weight:700;font-style:italic;line-height:1.35}
+
+
+/* where Borealis sits: a nested composition diagram, Auro atoms inside Borealis organisms inside a template */
+.nest{margin:0;display:grid;gap:1rem}
+.n-tpl{border:2px solid #101828;border-radius:1.25rem;padding:1.25rem;background:#fff}
+.dark .n-tpl{border-color:#fff;background:#111827}
+.n-head{display:flex;align-items:baseline;flex-wrap:wrap;gap:.35rem .6rem;margin-bottom:.9rem}
+.n-kind{font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgb(107 114 128)}
+.n-name{font-size:1.15rem;font-weight:700;letter-spacing:-.01em}
+.n-tpl>.n-head .n-name{font-size:1.35rem}
+.n-own{margin-left:auto;font-size:.7rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:999px;background:#101828;color:#fff}
+.dark .n-own{background:#fff;color:#101828}
+.n-orgs{display:grid;gap:.75rem}
+/* organisms laid out like the page they build: header, hero, three across, footer */
+@media (min-width:40rem){
+  .n-orgs{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .n-hdr,.n-hero,.n-ftr{grid-column:1 / -1}
+  .n-hero{min-height:11rem}
+  .n-ftr{min-height:7rem}
+  .n-c1,.n-promo,.n-c2{min-height:8rem}
+}
+.n-org{position:relative;border:1.5px dashed rgb(16 24 40 / .45);border-radius:.9rem;padding:1rem 1rem .9rem;display:flex;flex-direction:column}
+.dark .n-org{border-color:rgb(255 255 255 / .45)}
+.n-org .n-head{margin-bottom:.6rem}
+.n-atoms{list-style:none;margin:0 0 .75rem;padding:0;display:flex;flex-wrap:wrap;gap:.35rem}
+.n-atoms li{font-size:.8rem;font-weight:600;padding:.4rem .6rem;line-height:1;border-radius:6px;background:#eff6ff;color:#1d4ed8;border:1px solid #bfdbfe}
+.dark .n-atoms li{background:rgb(37 99 235 / .18);color:#93c5fd;border-color:rgb(147 197 253 / .35)}
+.n-logic{margin-top:auto;font-size:.8rem;font-weight:600;color:rgb(75 85 99)}
+.dark .n-logic{color:rgb(209 213 219)}
+.n-legend{display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;font-size:.85rem;color:rgb(75 85 99)}
+.dark .n-legend{color:rgb(209 213 219)}
+.lg{display:inline-flex;align-items:center;gap:.5rem}
+.lg::before{content:"";width:.9rem;height:.9rem;border-radius:.25rem;flex:none}
+.lg-b::before{border:2px solid currentColor}
+.lg-a::before{background:#eff6ff;border:1px solid #93c5fd}
+/* build-up animation, top-down like a page loading: the template frame, then header/nav,
+   hero, the card + promo row together, and the footer; each section brings its chips with it */
+.nest .n-tpl{transition:border-color .6s var(--ease-out),background-color .6s var(--ease-out)}
+.nest .n-tpl>.n-head{transition:opacity .5s var(--ease-out),transform .6s var(--ease-out)}
+.nest .n-org{--step:0;transition:opacity .55s var(--ease-out),transform .65s var(--ease-out),border-color .55s;transition-delay:calc(.35s + var(--step) * .38s)}
+.nest .n-hero{--step:1}.nest .n-c1,.nest .n-promo,.nest .n-c2{--step:2}.nest .n-ftr{--step:3}
+.nest .n-atoms li{transition:opacity .4s var(--ease-out),transform .45s var(--ease-out);transition-delay:calc(.55s + var(--step) * .38s + var(--j,0) * 60ms)}
+.nest .n-org:nth-child(1) li{--step:0}.nest .n-org:nth-child(2) li{--step:1}.nest .n-org:nth-child(3) li,.nest .n-org:nth-child(4) li,.nest .n-org:nth-child(5) li{--step:2}.nest .n-org:nth-child(6) li{--step:3}
+.nest .n-atoms li:nth-child(2){--j:1}.nest .n-atoms li:nth-child(3){--j:2}
+.nest.pre .n-tpl{border-color:transparent;background:transparent}
+.nest.pre .n-tpl>.n-head{opacity:0;transform:translateY(6px)}
+.nest.pre .n-org{opacity:0;transform:translateY(14px)}
+.nest.pre .n-atoms li{opacity:0;transform:scale(.7)}
+.nest.pre *{transition-delay:0s!important;transition-duration:0s!important}
+
+/* tags, site-wide: small rounded rectangles so they never read as buttons (buttons stay pills); no animation */
+.tag{display:inline-flex;align-items:center;font-size:.8rem;font-weight:500;line-height:1;padding:.4rem .6rem;border-radius:6px;background:#f3f4f6;border:1px solid #d1d5db;color:#374151;white-space:nowrap}
+.dark .tag,.tag-on-dark{background:rgb(255 255 255 / .06);border-color:rgb(255 255 255 / .14);color:rgb(209 213 219)}
+.tl-tags{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.75rem}
+
+
+/* ---- shared case study blocks (template) ---- */
+.sx-cell.hero.sx-long .sx-num{font-size:clamp(3.25rem,7.5vw,7rem);letter-spacing:-.045em}
+.sx-cell.sx-long2 .sx-num{font-size:clamp(1.9rem,3.3vw,2.85rem);white-space:normal}
+.sap.sap-long .sap-word{font-size:clamp(2.5rem,4.6vw,4.4rem)}
+.code-tags .tag{white-space:normal;overflow-wrap:anywhere;line-height:1.3}
+.figs{display:grid;gap:1rem;margin:0 0 2rem}
+@media (min-width:40rem){.figs{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.fig{margin:0;display:flex;flex-direction:column;gap:.75rem}
+.fig img{width:100%;height:auto;border-radius:1rem;border:1px solid rgb(0 0 0 / .08);background:#000}
+.fig-phone img{max-height:30rem;object-fit:contain;background:transparent;border:0}
+.fig figcaption{font-size:.95rem;line-height:1.5;color:rgb(75 85 99)}
+.dark .fig figcaption{color:rgb(209 213 219)}
+.fig figcaption strong{display:block;color:#101828;font-size:1.05rem;margin-bottom:.15rem}
+.dark .fig figcaption strong{color:#fff}
+.verdict{display:block;margin-top:.4rem;font-size:.8rem;font-weight:600}
+.verdict.cut{color:#b91c1c}.verdict.ok{color:#1d4ed8}.verdict.win{color:#15803d}
+.dark .verdict.cut{color:#fca5a5}.dark .verdict.ok{color:#93c5fd}.dark .verdict.win{color:#86efac}
+.wide-img{margin:0 0 2rem}.wide-img img{width:100%;height:auto;border-radius:1rem;border:1px solid rgb(0 0 0 / .08)}
+.wide-img-clear img{border:0;border-radius:0;background:transparent}
+.wide-img figcaption{font-size:.9rem;margin-top:.6rem;color:rgb(107 114 128)}
+.cards3{display:grid;gap:1rem;margin-bottom:2rem}
+@media (min-width:48rem){.cards3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.card3{padding:1.25rem;border-radius:1rem;background:#fff;border:1px solid rgb(0 0 0 / .1);display:flex;flex-direction:column;gap:.5rem}
+.dark .card3{background:#111827;border-color:rgb(255 255 255 / .14)}
+.card3 h4{font-size:1.2rem;font-weight:700;letter-spacing:-.01em}
+.card3 p{line-height:1.55;color:rgb(75 85 99)}
+.dark .card3 p{color:rgb(209 213 219)}
+.card3 .tl-tags{margin-top:auto;padding-top:.5rem}
+.code-tags .tag{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.75rem}
+.quotes{display:grid;gap:1rem;margin-bottom:2rem}
+@media (min-width:48rem){.quotes{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.quote-card{margin:0;padding:1.5rem;border-radius:1rem;background:#fff;border:1px solid rgb(0 0 0 / .1)}
+.dark .quote-card{background:#111827;border-color:rgb(255 255 255 / .14)}
+.quote-card p{font-size:1.15rem;font-weight:600;line-height:1.45;letter-spacing:-.005em}
+.quote-card cite{display:block;margin-top:.75rem;font-style:normal;font-size:.75rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgb(107 114 128)}
+.ramp{display:grid;gap:2rem;margin-bottom:2rem}
+@media (min-width:48rem){.ramp{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
+.ramp-col{padding:1.25rem;border-radius:1rem;background:#fff;border:1px solid rgb(0 0 0 / .1)}
+.dark .ramp-col{background:#111827;border-color:rgb(255 255 255 / .14)}
+.ramp-before{display:flex;flex-wrap:wrap;align-items:baseline;gap:.15rem .55rem;line-height:1.1}
+.ramp-before span{font-weight:700;color:rgb(156 163 175)}
+.ramp-after{display:grid;gap:.25rem}
+.ramp-after span{font-weight:700;letter-spacing:-.02em;line-height:1.15;display:flex;align-items:baseline;gap:.75rem}
+.ramp-after small{font-size:.7rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgb(107 114 128);min-width:2rem}
+.loadbars{display:grid;gap:.9rem;margin-bottom:2rem;max-width:44rem}
+.lb-row{display:grid;grid-template-columns:7rem minmax(0,1fr) 3.5rem;gap:.75rem;align-items:center;font-size:.9rem}
+.lb-track{height:.75rem;border-radius:999px;background:rgb(0 0 0 / .07);overflow:hidden}
+.dark .lb-track{background:rgb(255 255 255 / .1)}
+.lb-row b{text-align:right;font-variant-numeric:tabular-nums}
+.prio{list-style:none;margin:0 0 2rem;padding:0}
+.prio li{display:grid;grid-template-columns:2.5rem minmax(0,1fr) auto;gap:1rem;align-items:baseline;padding:1rem 0;border-top:1px solid rgb(0 0 0 / .12)}
+.dark .prio li{border-top-color:rgb(255 255 255 / .14)}
+.prio .pn{font-weight:700;font-variant-numeric:tabular-nums;color:rgb(107 114 128)}
+.prio .pt{font-weight:700}.prio .pd{display:block;font-weight:400;color:rgb(75 85 99);margin-top:.15rem}
+.dark .prio .pd{color:rgb(209 213 219)}
+.pill-ok{font-size:.75rem;font-weight:600;padding:.3rem .55rem;border-radius:6px;background:#dcfce7;color:#166534}
+.dark .pill-ok{background:rgb(34 197 94 / .18);color:#86efac}
+.pill-wait{font-size:.75rem;font-weight:600;padding:.3rem .55rem;border-radius:6px;background:#f3f4f6;color:#4b5563}
+.dark .pill-wait{background:rgb(255 255 255 / .08);color:#d1d5db}
+.example{max-width:40rem;padding:1.25rem 1.5rem;border-radius:1.25rem 1.25rem 1.25rem .25rem;background:#fff;border:1px solid rgb(0 0 0 / .1);line-height:1.55;margin-bottom:2rem}
+.dark .example{background:#111827;border-color:rgb(255 255 255 / .14)}
+
+
+/* ---- home v2 ---- */
+.proof{margin-bottom:0}
+.wk-head{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:1.5rem 2rem;margin:4.5rem 0 2.5rem}
+.wk-track{position:relative;display:flex;gap:1.5rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior-x:contain;
+  padding:.5rem max(1.5rem,calc((100vw - 80rem) / 2 + 2rem)) 4.25rem;scroll-padding-inline:max(1.5rem,calc((100vw - 80rem) / 2 + 2rem))}
+.wk-track::-webkit-scrollbar{display:none}
+.wk-track:focus-visible{outline:2px solid currentColor;outline-offset:-2px}
+.wk-card{flex:0 0 min(86vw,36rem);scroll-snap-align:start;min-width:0}
+.wk-card[hidden]{display:none}
+.wk-link{display:flex;flex-direction:column;height:100%;border-radius:1.5rem;overflow:hidden;background:#fff;border:1px solid rgb(0 0 0 / .08);color:inherit;text-decoration:none;transition:transform .6s var(--ease-out),box-shadow .6s var(--ease-out),border-color .2s ease}
+.dark .wk-link{background:#111827;border-color:rgb(255 255 255 / .12)}
+.dark .wk-link:hover{border-color:rgb(255 255 255 / .35)}
+.wk-link:hover{transform:translateY(-6px);box-shadow:0 30px 60px -30px rgb(0 0 0 / .35)}
+.wk-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:#e5e7eb}
+.wk-media>*{position:absolute;inset:0;width:100%;height:100%}
+.wk-media img{transition:transform 1.1s var(--ease-out)}
+.wk-link:hover .wk-media img{transform:scale(1.05)}
+.wk-media img.wk-logo{inset:auto;left:50%;top:50%;width:62%;height:auto;transform:translate(-50%,-50%)}
+.wk-link:hover .wk-media img.wk-logo{transform:translate(-50%,-50%) scale(1.03)}
+.wk-body{display:flex;flex-direction:column;gap:.6rem;padding:1.5rem 1.5rem 1.4rem;flex:1}
+.wk-client{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgb(107 114 128)}
+.wk-title{font-size:clamp(1.6rem,2.4vw,2.1rem);font-weight:600;letter-spacing:-.025em;line-height:1.1;color:#101828}
+.dark .wk-title{color:#fff}
+.wk-line{font-size:1.05rem;color:rgb(75 85 99)}
+.dark .wk-line{color:rgb(209 213 219)}
+.wk-stats{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:.6rem 0 .4rem;padding-top:1rem;border-top:1px solid rgb(0 0 0 / .1)}
+.dark .wk-stats{border-top-color:rgb(255 255 255 / .12)}
+.wk-stat{display:flex;flex-direction:column;gap:.15rem}
+.wk-num{font-size:clamp(1.75rem,2.6vw,2.4rem);font-weight:700;letter-spacing:-.035em;line-height:1;color:#101828}
+.dark .wk-num{color:#fff}
+.wk-lab{font-size:.85rem;color:rgb(107 114 128)}
+.wk-foot{margin-top:auto;padding-top:.75rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:.75rem}
+.wk-tags{display:flex;flex-wrap:wrap;gap:.35rem}
+.wk-media>.wk-cta{inset:auto 1rem 1rem auto;width:auto;height:auto;display:inline-flex;align-items:center;gap:.45rem;padding:.55rem 1rem;border-radius:9999px;
+  font-weight:600;font-size:.9rem;color:#fff;background:rgb(0 0 0 / .45);border:1px solid rgb(255 255 255 / .2);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);transition:background-color .2s ease,border-color .2s ease}
+.wk-cta svg{width:1rem;height:1rem}
+.wk-link:hover .wk-cta{background:rgb(0 0 0 / .7);border-color:rgb(255 255 255 / .45)}
+.wk-pager{position:relative;display:flex;align-items:center;gap:1rem;margin-top:-2.25rem}
+.wk-pos{font-variant-numeric:tabular-nums;font-weight:600;font-size:.9rem}
+.wk-arrows{margin-left:auto;display:flex;gap:.5rem}
+.wk-arrows button{width:2.75rem;height:2.75rem;border-radius:50%;border:1px solid currentColor;background:transparent;color:#101828;font-size:1.1rem;cursor:pointer;transition:background-color .3s,color .3s,opacity .3s}
+.dark .wk-arrows button{color:#fff}
+.wk-arrows button:hover:not(:disabled){background:#101828;color:#fff}
+.dark .wk-arrows button:hover:not(:disabled){background:#fff;color:#101828}
+.wk-arrows button:disabled{opacity:.3;cursor:default}
+@supports (animation-timeline: view()){
+  @keyframes wkIn{from{opacity:.25}to{opacity:1}}
+  .wk-card{animation:wkIn linear both;animation-timeline:view(inline);animation-range:entry 0% entry 60%}
+}
+/* expertise: editorial index */
+.xp-list{list-style:none;margin:0;padding:0;border-top:1px solid rgb(0 0 0 / .12)}
+.dark .xp-list{border-top-color:rgb(255 255 255 / .14)}
+.xp-row{display:grid;grid-template-columns:2.75rem minmax(0,1fr);gap:.4rem 1.25rem;padding:1.6rem 0;border-bottom:1px solid rgb(0 0 0 / .12);align-items:baseline}
+.dark .xp-row{border-bottom-color:rgb(255 255 255 / .14)}
+@media (min-width:48rem){.xp-row{grid-template-columns:2.75rem minmax(0,18rem) minmax(0,1fr);gap:2rem}}
+.xp-ic{width:2.75rem;height:2.75rem;border-radius:.75rem;display:grid;place-items:center;background:#101828;color:#fff;align-self:center;transition:transform .5s var(--ease-out)}
+.dark .xp-ic{background:#fff;color:#101828}
+.xp-row:hover .xp-ic{transform:rotate(-8deg) scale(1.08)}
+.xp-k{font-size:1.4rem;font-weight:700;letter-spacing:-.02em;color:#101828;align-self:center}
+.dark .xp-k{color:#fff}
+.xp-v{grid-column:2;font-size:1.05rem;line-height:1.6;color:rgb(55 65 81)}
+.dark .xp-v{color:rgb(209 213 219)}
+@media (min-width:48rem){.xp-v{grid-column:3}}
+@supports (animation-timeline: view()){.xp-row{animation:reveal linear both;animation-timeline:view(block 0% 25%);animation-range:entry calc(var(--i) * 4%) cover calc(18% + var(--i) * 3%)}}
+
+/* home hero: interactive molecular dot field */
+.hero-field{position:absolute;inset:0;width:100%;height:100%;z-index:0;touch-action:pan-y;
+  -webkit-mask-image:radial-gradient(ellipse 60% 55% at 50% 48%,rgb(0 0 0 / .35) 0%,#000 75%);mask-image:radial-gradient(ellipse 60% 55% at 50% 48%,rgb(0 0 0 / .35) 0%,#000 75%)}
+#hero{cursor:default}
+.dark #hero{background:#0a0f1a}
+
+/* pause control and reduced motion */
+.paused .hero-bg,.paused .skater,.paused .animate-bounce{animation-play-state:paused}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .rotator .word{filter:none}
+}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+</style>
+</head><body class="cs-page" style="--hl-l:#20285b;--hl-tl:#fff;--hl-d:#20285b;--hl-td:#fff">
+<div class="progress" aria-hidden="true"></div>
+<nav id="topnav" class="fixed top-0 left-0 right-0 bg-white/70 dark:bg-black/70 backdrop-blur-2xl z-50 border-b border-gray-200/50 dark:border-white/10 transition-colors duration-300 px-6 lg:px-8" aria-label="Main navigation">
+<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:px-6 focus:py-3 focus:bg-primary focus:text-primary-foreground focus:rounded-lg focus:font-semibold focus:shadow-lg">Skip to main content</a>
+<div class="max-w-7xl mx-auto"><div class="flex justify-between items-center h-16">
+<a class="text-xl font-semibold text-gray-900 dark:text-white hover:text-gray-600 dark:hover:text-gray-300 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-black rounded-lg px-2 -mx-2" aria-label="Erika Craig-Rielly - Home" href="index.html#hero">Erika Craig-Rielly <span class="text-gray-300 dark:text-gray-700 hidden md:inline" aria-hidden="true">|</span> <span class="text-gray-700 dark:text-gray-300 hidden md:inline">Principal UX Designer</span></a>
+<div class="flex items-center gap-2">
+<a class="navlink hidden md:inline-flex btn btn-sm btn-ghost" href="index.html#work">Work</a><a class="navlink hidden md:inline-flex btn btn-sm btn-ghost" href="index.html#expertise">Expertise</a><a class="navlink hidden md:inline-flex btn btn-sm btn-ghost" href="index.html#about">About</a>
+<a class="btn btn-sm btn-primary hidden md:inline-flex ml-2" href="mailto:erika.craig.rielly@gmail.com?subject=Let's%20Collaborate!">Get in touch</a>
+<button id="themeBtn" type="button" class="btn btn-icon btn-ghost ml-2" aria-label="Switch to dark mode"><span class="i-moon"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></span><span class="i-sun"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="" aria-hidden="true"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2"></path><path d="M12 20v2"></path><path d="m4.93 4.93 1.41 1.41"></path><path d="m17.66 17.66 1.41 1.41"></path><path d="M2 12h2"></path><path d="M20 12h2"></path><path d="m6.34 17.66-1.41 1.41"></path><path d="m19.07 4.93-1.41 1.41"></path></svg></span></button>
+<button id="motionBtn" type="button" aria-pressed="false" class="btn btn-icon btn-ghost" aria-label="Pause animations"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><g class="i-pause"><path d="M9 5v14"></path><path d="M15 5v14"></path></g><path class="i-play" d="M7 4.5v15l12-7.5z"></path></svg></button>
+<button id="menuBtn" type="button" class="btn btn-icon btn-ghost nav-menu-btn" aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><g class="i-menu"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></g><g class="i-close"><path d="M6 6l12 12"></path><path d="M18 6L6 18"></path></g></svg></button>
+</div></div>
+<div id="mobileMenu" class="mobile-menu" hidden><a class="mm-link" href="index.html#work">Work</a><a class="mm-link" href="index.html#expertise">Expertise</a><a class="mm-link" href="index.html#about">About</a><a class="btn btn-sm btn-secondary" href="mailto:erika.craig.rielly@gmail.com?subject=Let's%20Collaborate!">Get in touch <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a></div>
+<script>(() => {
+  /* mobile menu: toggle, close on link, Escape, or when the screen gets wide enough for the full nav */
+  const btn = document.getElementById('menuBtn'), menu = document.getElementById('mobileMenu'); if (!btn || !menu) return;
+  const set = open => { btn.setAttribute('aria-expanded', String(open)); btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); menu.hidden = !open; };
+  btn.addEventListener('click', () => set(menu.hidden));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) set(false); });
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !menu.hidden) { set(false); btn.focus(); } });
+  matchMedia('(min-width: 48rem)').addEventListener('change', e => { if (e.matches) set(false); });
+})();</script></div></nav>
+<main id="main-content"><article class="min-h-screen pt-16">
+<div class="relative overflow-hidden h-[60vh] bg-gray-100 dark:bg-gray-800"><div class="cs-hero-wrap absolute inset-0"><img src="hal-hero.webp" alt="The Westerdam, a Holland America Line ship, sailing through Glacier Bay, Alaska" class="cs-hero-img absolute inset-0 w-full h-full object-cover" style="object-position:center"></div><div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-black/15 z-20"></div><p class="absolute right-4 top-20 z-30 text-xs text-white/70">Image: Holland America</p>
+<div class="absolute bottom-0 left-0 right-0 p-6 lg:p-12 z-30"><div class="max-w-7xl mx-auto">
+<div class="enter" style="--d:0"><a class="btn btn-sm btn-secondary on-dark mb-6" href="index.html#work"><span class="w-4 h-4 flex items-center justify-center"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-full h-full" aria-hidden="true"><path d="m12 19-7-7 7-7"></path><path d="M19 12H5"></path></svg></span>Back to home</a></div>
+<h1 class="enter text-3xl md:text-6xl font-bold text-white mb-4" style="--d:1">Navigator port guides</h1>
+<div class="max-w-3xl"><p class="enter text-xl md:text-2xl text-white/90" style="--d:2">From first sketch to testable prototype in 10 days.</p><p class="enter text-xl md:text-2xl text-white/90 mt-4" style="--d:3">Replacing printed maps and crew-delivered directions with in-app port guides for every destination in the Holland America fleet.</p></div>
+</div></div></div>
+<div class="relative">
+<section class="py-16 px-6 lg:px-12 bg-white dark:bg-gray-900 transition-colors duration-300"><div class="max-w-7xl mx-auto">
+<div class="sx text-gray-900 dark:text-white"><div class="sx-cell hero sx-long rv" style="--i:0"><div class="sx-num">10 days</div><div class="sx-lab">Sketch to prototype</div><div class="sx-sub text-gray-500 dark:text-gray-400">One designer, start to finish</div></div><div class="sx-cell  sx-long2 rv" style="--i:1"><div class="sx-num">Bi-weekly</div><div class="sx-lab">On-ship moderated testing</div><div class="sx-sub text-gray-500 dark:text-gray-400">During Alaska Season</div></div><div class="sx-cell   rv" style="--i:2"><div class="sx-num">3</div><div class="sx-lab">Design iterations</div><div class="sx-sub text-gray-500 dark:text-gray-400">One taken into testing</div></div><div class="sx-cell   rv" style="--i:3"><div class="sx-num">$M</div><div class="sx-lab">Paper and ink savings</div><div class="sx-sub text-gray-500 dark:text-gray-400">Estimated fleet-wide</div></div><div class="sx-cell   rv" style="--i:4"><div class="sx-num">5</div><div class="sx-lab">Platforms</div><div class="sx-sub text-gray-500 dark:text-gray-400">Mobile, tablet, kiosk, desktop, stateroom TV</div></div></div>
+<div class="cs-swipe" role="region" aria-label="Challenge and solution"><div class="cs-cs is-challenge"><h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Challenge</h2><p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">Guests had <mark class="hl" style="--k:0">no digital way to explore ports</mark>. Crew answered the same questions hundreds of times per voyage with printed Google Maps and hand-typed documents. When an excursion changed, staff <mark class="hl" style="--k:1">reprinted and hand-delivered packets to every affected stateroom</mark>, <mark class="hl" style="--k:2">every single day</mark>.</p></div><div class="cs-cs is-solution"><h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">Solution</h2><p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">Designed <mark class="hl" style="--k:0">a complete port guide</mark> for the Navigator app: points of interest, local dining with <mark class="hl" style="--k:1">offline turn-by-turn directions</mark>, shore excursion planning, and a visual journey tracker. One update now reaches <mark class="hl" style="--k:2">every affected device instantly</mark>.</p></div></div><div class="cs-dots flex gap-0 mt-4" role="tablist" aria-label="Challenge and solution"><button class="dot relative inline-flex items-center justify-center min-h-[44px] px-[4px]" type="button" aria-label="View challenge" aria-selected="true" role="tab"><span class="block rounded-full transition-all bg-gray-900 dark:bg-white w-6 h-2" aria-hidden="true"></span></button><button class="dot relative inline-flex items-center justify-center min-h-[44px] px-[4px]" type="button" aria-label="View solution" aria-selected="false" role="tab"><span class="block rounded-full transition-all bg-gray-400 dark:bg-gray-600 w-2 h-2" aria-hidden="true"></span></button></div>
+</div></section>
+<section class="py-16 px-6 lg:px-12 bg-gray-900 dark:bg-black transition-colors duration-300"><div class="max-w-7xl mx-auto">
+<div class="rv"><h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">Impact</h3><h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Before. After.</h2><p class="text-lg md:text-xl text-gray-300 mb-12 max-w-3xl">Port guides were a paper problem before they were a UX problem.</p></div>
+<div class="ba-head" aria-hidden="true"><span></span><span>Before</span><span></span><span>After</span></div><ol class="ba" aria-label="Before and after"><li class="ba-row" style="--i:0"><span class="ba-label">Port info</span><span class="ba-before"><span class="ba-tag">Before</span><s>Printed maps and word of mouth</s></span><span class="ba-arrow" aria-hidden="true">→</span><span class="ba-after"><span class="ba-tag">After</span>In-app guides for every port</span></li><li class="ba-row" style="--i:1"><span class="ba-label">Changes</span><span class="ba-before"><span class="ba-tag">Before</span><s>Reprinted and hand-delivered daily</s></span><span class="ba-arrow" aria-hidden="true">→</span><span class="ba-after"><span class="ba-tag">After</span>One update, pushed instantly</span></li><li class="ba-row" style="--i:2"><span class="ba-label">Directions</span><span class="ba-before"><span class="ba-tag">Before</span><s>Memorized routes from crew</s></span><span class="ba-arrow" aria-hidden="true">→</span><span class="ba-after"><span class="ba-tag">After</span>Offline turn-by-turn directions</span></li><li class="ba-row" style="--i:3"><span class="ba-label">Planning</span><span class="ba-before"><span class="ba-tag">Before</span><s>Stitched together from third-party sites</s></span><span class="ba-arrow" aria-hidden="true">→</span><span class="ba-after"><span class="ba-tag">After</span>Excursions, dining, and points of interest in one place</span></li><li class="ba-row" style="--i:4"><span class="ba-label">Crew time</span><span class="ba-before"><span class="ba-tag">Before</span><s>The same questions, hundreds of times</s></span><span class="ba-arrow" aria-hidden="true">→</span><span class="ba-after"><span class="ba-tag">After</span>Answered by the app</span></li></ol>
+</div></section>
+<section id="outcomes-section" class="py-16 px-6 lg:px-12 bg-white dark:bg-gray-900 transition-colors duration-300"><div class="max-w-7xl mx-auto">
+<div class="rv"><h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">Outcomes</h2><p class="sr-only">Fast. Tested. Paperless.</p></div>
+<div class="sap sap-long text-gray-900 dark:text-white"><div class="sap-col play-on-view" style="--i:0"><h3 class="sap-word">Fast<span class="sap-dot">.</span></h3><p class="sap-lede text-gray-600 dark:text-gray-300">A testable prototype, from first sketch, in under two weeks.</p><ul class="sap-facts"><li class="sap-fact"><span class="sap-num">10 days</span><span class="sap-lab text-gray-600 dark:text-gray-300">sketch to prototype</span></li><li class="sap-fact"><span class="sap-num">3</span><span class="sap-lab text-gray-600 dark:text-gray-300">design iterations</span></li></ul></div><div class="sap-col play-on-view" style="--i:1"><h3 class="sap-word">Tested<span class="sap-dot">.</span></h3><p class="sap-lede text-gray-600 dark:text-gray-300">With guests about to walk off the ship into port.</p><ul class="sap-facts"><li class="sap-fact"><span class="sap-num">Bi-weekly</span><span class="sap-lab text-gray-600 dark:text-gray-300">on-ship testing</span></li><li class="sap-fact"><span class="sap-num">4</span><span class="sap-lab text-gray-600 dark:text-gray-300">quick wins from testing</span></li></ul></div><div class="sap-col play-on-view" style="--i:2"><h3 class="sap-word">Paperless<span class="sap-dot">.</span></h3><p class="sap-lede text-gray-600 dark:text-gray-300">Reprints and stateroom deliveries replaced by a single update.</p><ul class="sap-facts"><li class="sap-fact"><span class="sap-num">$M</span><span class="sap-lab text-gray-600 dark:text-gray-300">estimated fleet-wide savings</span></li><li class="sap-fact"><span class="sap-num">1</span><span class="sap-lab text-gray-600 dark:text-gray-300">update reaches every device</span></li></ul></div></div>
+</div></section>
+<section id="full-story" class="py-16 md:py-24 px-6 lg:px-12 bg-gray-50 dark:bg-gray-800 transition-colors duration-300" aria-labelledby="fs-heading"><div class="max-w-7xl mx-auto">
+<div class="fs-head rv"><div><h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">The full story</h3><h2 id="fs-heading" class="text-3xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4">Everything behind the numbers.</h2><p class="text-lg md:text-xl text-gray-600 dark:text-gray-300 max-w-3xl">Four chapters. Jump to any of them, or swipe through.</p></div></div>
+<div class="fs-slider text-gray-900 dark:text-white"><div class="fs-tabs" role="tablist" aria-label="Full story chapters"><button type="button" role="tab" id="fst-iterations" class="fs-tab" aria-selected="true" aria-controls="fsp-iterations" tabindex="0" data-k="0"><span class="fs-tab-n">01</span>Design iterations</button><button type="button" role="tab" id="fst-research" class="fs-tab" aria-selected="false" aria-controls="fsp-research" tabindex="-1" data-k="1"><span class="fs-tab-n">02</span>Research and testing</button><button type="button" role="tab" id="fst-final" class="fs-tab" aria-selected="false" aria-controls="fsp-final" tabindex="-1" data-k="2"><span class="fs-tab-n">03</span>Final designs</button><button type="button" role="tab" id="fst-impact" class="fs-tab" aria-selected="false" aria-controls="fsp-impact" tabindex="-1" data-k="3"><span class="fs-tab-n">04</span>Environmental impact</button></div><div class="fs-track" tabindex="0" role="region" aria-label="Chapter slides"><section class="fs-slide" role="tabpanel" id="fsp-iterations" aria-labelledby="fst-iterations" data-k="0"><div class="ch"><div class="ch-rail"><span class="ch-num" aria-hidden="true">01</span><p class="fs-kicker">Chapter 01 of 04</p><h3 class="ch-title">Design iterations</h3><p class="ch-sum text-gray-600 dark:text-gray-300">Three directions. One winner. Ten days from sketch to prototype.</p><div class="ch-key"><span class="ch-key-n">3</span><span class="ch-key-l text-gray-600 dark:text-gray-300">directions explored</span></div></div><div class="ch-main"><div class="st" style="--i:0"><p class="ch-lede text-gray-700 dark:text-gray-300">Initial sketching happened on Hoylu, a digital sketch wall that let stakeholders give feedback from anywhere in the world. It permanently retired the whiteboard-plus-phone-photo workflow.</p></div><div class="figs"><figure class="fig fig-phone st" style="--i:1"><img src="hal-v1.webp" alt="Version 1 of the Navigator port guide with a live ship cam" loading="eager" decoding="async"><figcaption><strong>Version 1</strong>A live ship cam with the guest's journey route as the primary visual.<span class="verdict cut">Cut: not every ship had a live cam.</span></figcaption></figure><figure class="fig fig-phone st" style="--i:2"><img src="hal-v2.webp" alt="Version 2 of the Navigator port guide with prev and next port navigation" loading="eager" decoding="async"><figcaption><strong>Version 2</strong>No ship cam, and lighter text areas for legibility in bright port sun.<span class="verdict ok">Improved: better outdoor legibility.</span></figcaption></figure><figure class="fig fig-phone st" style="--i:3"><img src="hal-v3.webp" alt="Version 3 of the Navigator port guide with tabbed navigation" loading="eager" decoding="async"><figcaption><strong>Version 3</strong>Fewer pages and information surfaced immediately, without tap-through menus.<span class="verdict win">Selected and taken into testing.</span></figcaption></figure></div></div></div></section><section class="fs-slide" role="tabpanel" id="fsp-research" aria-labelledby="fst-research" data-k="1"><div class="ch"><div class="ch-rail"><span class="ch-num" aria-hidden="true">02</span><p class="fs-kicker">Chapter 02 of 04</p><h3 class="ch-title">Research and testing</h3><p class="ch-sum text-gray-600 dark:text-gray-300">No cruise app was doing this well, so we tested on the ships.</p><div class="ch-key"><span class="ch-key-n">Bi-weekly</span><span class="ch-key-l text-gray-600 dark:text-gray-300">on-ship testing sessions</span></div></div><div class="ch-main"><div class="st" style="--i:0"><p class="ch-lede text-gray-700 dark:text-gray-300">Research covered direct competitors (Virgin Voyages, Norwegian, Disney, Royal Caribbean) and the third-party sites guests already used. Guests were stitching information together before every port day, often the night before or in line at the gangway.</p></div><div class="st" style="--i:1"><p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6 max-w-3xl">Prototypes were built in InVision and pre-loaded on a personal device, since ship Wi-Fi is unreliable. That made a one-person moderated session possible, with screen and audio recording and no extra equipment.</p></div><div class="st" style="--i:2"><figure class="wide-img wide-img-clear"><img src="hal-testing.webp" alt="Excel tracking sheet and Confluence insights database from on-ship testing" loading="lazy" decoding="async"><figcaption>Testing data tracked in Excel during sessions, then catalogued in Confluence after each round.</figcaption></figure></div><ol class="ch-rows" aria-label="Testing findings"><li class="ch-row st" style="--i:1"><span class="ch-row-k">A label problem, not a placement problem</span><p class="ch-row-v text-gray-600 dark:text-gray-300">Testers struggled to find "current port." Asked where their ship was right now, they found it easily. The label was the issue.</p></li><li class="ch-row st" style="--i:2"><span class="ch-row-k">Guests wanted to call a cab from the gangway</span><p class="ch-row-v text-gray-600 dark:text-gray-300">Testers wanted ride-share from the directions screen, and their booked excursions on the port day page.</p></li></ol><div class="st" style="--i:5"><div class="ch-note text-gray-600 dark:text-gray-300"><strong class="text-gray-900 dark:text-white">Quick wins from testing.</strong> A clearer current-port label, a highlight on the current port in map and journey views, removing the close button on port detail pages, and a future look at Uber and Lyft integration.</div></div></div></div></section><section class="fs-slide" role="tabpanel" id="fsp-final" aria-labelledby="fst-final" data-k="2"><div class="ch"><div class="ch-rail"><span class="ch-num" aria-hidden="true">03</span><p class="fs-kicker">Chapter 03 of 04</p><h3 class="ch-title">Final designs</h3><p class="ch-sum text-gray-600 dark:text-gray-300">Three views and a full set of port detail screens.</p><div class="ch-key"><span class="ch-key-n">3</span><span class="ch-key-l text-gray-600 dark:text-gray-300">primary views</span></div></div><div class="ch-main"><div class="st" style="--i:0"><p class="ch-lede text-gray-700 dark:text-gray-300">After synthesizing testing data, three primary views were developed, using Juneau, Alaska as the reference port.</p></div><ol class="ch-rows" aria-label="Primary views"><li class="ch-row st" style="--i:1"><span class="ch-row-k">List view</span><p class="ch-row-v text-gray-600 dark:text-gray-300">The guest's journey with every port in sequence. Testing confirmed it was the easiest view for most guests to navigate.</p></li><li class="ch-row st" style="--i:2"><span class="ch-row-k">Journey view</span><p class="ch-row-v text-gray-600 dark:text-gray-300">A visual tracker of the ship's position along its route, with tagged crew photos at each port for a post-cruise keepsake.</p></li><li class="ch-row st" style="--i:3"><span class="ch-row-k">Fleet view</span><p class="ch-row-v text-gray-600 dark:text-gray-300">Every Holland America ship across the globe, with better land-to-sea contrast and tagged location photos.</p></li></ol><div class="ch-sub"><p class="ch-sub-label">Everything a guest needs, one tap away</p><div class="st" style="--i:0"><p class="ch-lede text-gray-700 dark:text-gray-300">Each port opens one detail screen with tabbed navigation, so guests can plan without leaving the context of their destination.</p></div><div class="st" style="--i:1"><div class="tl-tags "><span class="tag">Points of interest</span><span class="tag">Shore excursions</span><span class="tag">Local dining</span><span class="tag">Restaurant detail</span><span class="tag">Guide me</span><span class="tag">iOS</span><span class="tag">Android</span><span class="tag">Tablet</span><span class="tag">Kiosk</span><span class="tag">Desktop</span><span class="tag">Stateroom TV</span></div></div></div></div></div></section><section class="fs-slide" role="tabpanel" id="fsp-impact" aria-labelledby="fst-impact" data-k="3"><div class="ch"><div class="ch-rail"><span class="ch-num" aria-hidden="true">04</span><p class="fs-kicker">Chapter 04 of 04</p><h3 class="ch-title">Environmental impact</h3><p class="ch-sum text-gray-600 dark:text-gray-300">Paper eliminated, fleet-wide.</p><div class="ch-key"><span class="ch-key-n">$M</span><span class="ch-key-l text-gray-600 dark:text-gray-300">estimated savings, fleet-wide</span></div></div><div class="ch-main"><div class="st" style="--i:0"><blockquote class="ch-quote">"Every change triggered a full reprint and a stateroom-by-stateroom delivery run across the entire ship."</blockquote></div><div class="st" style="--i:1"><p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6 max-w-3xl">Port experiences change daily with weather, tides, and logistics. A digital solution collapsed all of that to a single update pushed to every affected device: no reprinting, no delivery, no guest trekking back to their cabin for revised paperwork.</p></div><div class="st" style="--i:2"><p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-6 max-w-3xl">Multiply that across a full fleet and a full season, and the estimated savings in paper, ink, crew time, and printing infrastructure reach into the millions.</p></div></div></div></section></div><div class="fs-pager"><button type="button" class="fs-prev" aria-label="Previous chapter">←</button><div class="fs-dots flex gap-0"><button class="dot relative inline-flex items-center justify-center min-h-[44px] px-[4px]" type="button" aria-label="Go to chapter 1" data-k="0"><span class="block rounded-full transition-all bg-gray-900 dark:bg-white w-6 h-2" aria-hidden="true"></span></button><button class="dot relative inline-flex items-center justify-center min-h-[44px] px-[4px]" type="button" aria-label="Go to chapter 2" data-k="1"><span class="block rounded-full transition-all bg-gray-400 dark:bg-gray-600 w-2 h-2" aria-hidden="true"></span></button><button class="dot relative inline-flex items-center justify-center min-h-[44px] px-[4px]" type="button" aria-label="Go to chapter 3" data-k="2"><span class="block rounded-full transition-all bg-gray-400 dark:bg-gray-600 w-2 h-2" aria-hidden="true"></span></button><button class="dot relative inline-flex items-center justify-center min-h-[44px] px-[4px]" type="button" aria-label="Go to chapter 4" data-k="3"><span class="block rounded-full transition-all bg-gray-400 dark:bg-gray-600 w-2 h-2" aria-hidden="true"></span></button></div><span class="fs-pos" aria-live="polite">1 / 4</span><button type="button" class="fs-next" aria-label="Next chapter">→</button></div></div>
+</div></section>
+<section id="reflection" class="refl px-6 lg:px-12 bg-white dark:bg-gray-900 transition-colors duration-300" aria-labelledby="refl-heading"><div class="max-w-7xl mx-auto refl-grid text-gray-900 dark:text-white">
+<div class="rv"><p class="ch-label">Reflection</p><h2 id="refl-heading" class="refl-big">Port guides were a paper problem <span class="text-gray-400 dark:text-gray-500">before they were a UX problem.</span></h2></div>
+<div class="refl-side"><p class="rv text-lg text-gray-600 dark:text-gray-300 leading-relaxed mb-8">Testing with guests about to walk off the ship, with real intent and real time pressure, produced a different quality of insight than any lab could. The current-port label issue would have been easy to miss on land. On the ship, it surfaced immediately.</p>
+<blockquote class="quote rv refl-quote text-gray-900 dark:text-white"><p>"A one-person testing rig on a personal device is one of those scrappy solutions I'm still proud of. It worked exactly as needed, in exactly the conditions it needed to."</p></blockquote></div>
+</div></section>
+<section class="py-12 px-6 lg:px-12 bg-gray-900 dark:bg-black transition-colors duration-300"><div class="max-w-7xl mx-auto"><p class="text-white mb-1">Navigator Port Guides · Holland America Line</p><p class="text-gray-400 mb-6">Principal UX Designer · 2019 · Shipped to production</p><div class="flex flex-wrap gap-2"><span class="tag tag-on-dark">Mobile UX</span><span class="tag tag-on-dark">Travel</span><span class="tag tag-on-dark">User Research</span><span class="tag tag-on-dark">Prototyping</span><span class="tag tag-on-dark">On-Ship Testing</span><span class="tag tag-on-dark">iOS</span><span class="tag tag-on-dark">Android</span><span class="tag tag-on-dark">InVision</span><span class="tag tag-on-dark">Hoylu</span></div></div></section>
+<div class="sticky bottom-0 z-10 hidden md:block bg-[#1d1d1f] dark:bg-black border-t border-gray-800 dark:border-gray-900 px-6 lg:px-12"><div class="max-w-7xl mx-auto py-6"><div class="flex items-center gap-8"><div class="grid grid-cols-3 gap-8 flex-1"><div><h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">Client</h3><p class="text-lg text-white">Holland America</p></div><div><h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">Role</h3><p class="text-lg text-white">Principal UX Designer</p></div><div><h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-2">Duration</h3><p class="text-lg text-white">10 days</p></div></div><a href="#full-story" class="btn btn-sm btn-primary on-dark shrink-0">Read the full story</a></div></div></div>
+</div>
+<section class="py-16 px-6 lg:px-12 bg-gray-900 dark:bg-black text-center transition-colors duration-300"><div class="max-w-4xl mx-auto rv"><h2 class="text-2xl md:text-4xl font-bold text-white mb-6">Interested in learning more?</h2><p class="text-xl text-gray-300 dark:text-gray-400 mb-8">Let's discuss how I can help with your design system, UX or accessibility challenges.</p><a href="mailto:erika.craig.rielly@gmail.com?subject=Let's%20Collaborate!" class="btn btn-lg btn-primary on-dark">Get in touch</a></div></section>
+</article></main>
+<script>(() => {
+  const root = document.documentElement;
+  const RM = matchMedia('(prefers-reduced-motion: reduce)');
+  /* case study pages always open at the top */
+  if (document.querySelector('.cs-hero-wrap')) {
+    try { history.scrollRestoration = 'manual'; } catch (e) {}
+    const top = () => { if (!location.hash) { root.style.scrollBehavior = 'auto'; scrollTo(0, 0); root.style.scrollBehavior = ''; } };
+    top(); addEventListener('load', top); addEventListener('pageshow', top);
+  }
+  /* smooth scrolling only for clicks after the page has settled, never during load */
+  addEventListener('load', () => setTimeout(() => root.classList.add('ready'), 300));
+  const still = () => RM.matches || root.classList.contains('paused');
+
+  /* theme: follow the viewer's theme, let the moon/sun button override */
+  const themeBtn = document.getElementById('themeBtn');
+  let manual = null;
+  const applyTheme = () => {
+    const t = root.getAttribute('data-theme');
+    const dark = manual !== null ? manual : (t === 'dark' || (t !== 'light' && matchMedia('(prefers-color-scheme: dark)').matches));
+    root.classList.toggle('dark', dark);
+    themeBtn.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+  };
+  themeBtn.addEventListener('click', () => { manual = !root.classList.contains('dark'); applyTheme(); });
+  matchMedia('(prefers-color-scheme: dark)').addEventListener('change', applyTheme);
+  new MutationObserver(m => { if (m.some(x => x.attributeName === 'data-theme')) { manual = null; applyTheme(); } }).observe(root, { attributes: true });
+  applyTheme();
+
+  /* pause all motion (WCAG 2.2.2) */
+  const motionBtn = document.getElementById('motionBtn');
+  motionBtn.addEventListener('click', () => {
+    const p = root.classList.toggle('paused');
+    motionBtn.setAttribute('aria-pressed', String(p));
+    motionBtn.setAttribute('aria-label', p ? 'Play animations' : 'Pause animations');
+  });
+
+  /* rotating headline, same four phrases and order as the live site */
+  const words = [...document.querySelectorAll('.rotator .word')];
+  let wi = 0;
+  if (words.length) setInterval(() => {
+    if (still()) return;
+    const cur = words[wi]; wi = (wi + 1) % words.length; const nx = words[wi];
+    cur.classList.remove('is-on'); cur.classList.add('is-out');
+    nx.classList.remove('is-out'); nx.classList.add('is-on');
+    setTimeout(() => cur.classList.remove('is-out'), 800);
+  }, 3000);
+
+  /* scroll progress, nav shadow, hero parallax */
+  const bar = document.querySelector('.progress'), nav = document.getElementById('topnav');
+  const bgs = [...document.querySelectorAll('.hero-bg')];
+  let ticking = false;
+  const onScroll = () => {
+    ticking = false;
+    const y = scrollY, max = document.documentElement.scrollHeight - innerHeight;
+    bar.style.setProperty('--p', max > 0 ? (y / max).toFixed(4) : 0);
+    nav.classList.toggle('scrolled', y > 8);
+    if (!still() && y < innerHeight * 1.2) bgs.forEach(b => b.style.translate = `0 ${y * 0.35}px`);
+  };
+  addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+  onScroll();
+
+  /* magnetic buttons */
+  if (matchMedia('(hover: hover)').matches) document.querySelectorAll('.magnet').forEach(el => {
+    el.addEventListener('pointermove', e => {
+      if (still()) return;
+      const r = el.getBoundingClientRect();
+      el.style.setProperty('--mx', ((e.clientX - r.left - r.width / 2) * 0.18) + 'px');
+      el.style.setProperty('--my', ((e.clientY - r.top - r.height / 2) * 0.28) + 'px');
+    });
+    el.addEventListener('pointerleave', () => { el.style.setProperty('--mx', '0px'); el.style.setProperty('--my', '0px'); });
+  });
+
+  /* count-ups: run when a figure scrolls into view, and run again each time it comes back after
+     leaving the screen (final values show at rest) */
+  const counts = document.querySelectorAll('.count');
+  if ('IntersectionObserver' in window) {
+    const run = el => {
+      const to = +el.dataset.to, dec = +(el.dataset.dec || 0), pre = el.dataset.pre || '', suf = el.dataset.suf || '';
+      const t0 = performance.now(), D = 1500;
+      const f = t => { const k = Math.min(1, (t - t0) / D), v = to * (1 - Math.pow(1 - k, 4)); el.textContent = pre + v.toFixed(dec) + suf; if (k < 1) requestAnimationFrame(f); };
+      requestAnimationFrame(f);
+    };
+    const io = new IntersectionObserver(es => es.forEach(e => {
+      const el = e.target;
+      if (e.isIntersecting) { if (!el._played && !still()) run(el); el._played = true; }
+      else { const r = e.boundingClientRect; if (r.top > innerHeight || r.bottom < 0) el._played = false; }
+    }), { threshold: [0, 0.6] });
+    counts.forEach(c => io.observe(c));
+  }
+
+  /* audit bars: each bar grows left to right once the bar itself sits clearly above
+     the sticky footer, measured from the visible area so it works at any window height */
+  const fills = [...document.querySelectorAll('.bar-fill')];
+  if (fills.length && !RM.matches) {
+    const foot = document.querySelector('.sticky.bottom-0');
+    const line = () => {
+      const fb = foot && foot.offsetParent ? foot.getBoundingClientRect().height : 0;
+      const visible = innerHeight - fb;
+      return visible - 8; /* bar starts as soon as it is fully visible above the sticky footer */
+    };
+    /* replays every time: a bar empties once it leaves the zone (back below the line or
+       off the top of the screen) and grows again when it re-enters */
+    const check = () => {
+      if (still()) { fills.forEach(f => f.classList.remove('pre')); return; }
+      const l = line();
+      fills.forEach(f => {
+        const r = f.parentElement.getBoundingClientRect();
+        const inZone = r.bottom <= l && r.bottom > 0 && r.left >= -1 && r.right <= innerWidth + 1;
+        if (inZone && f.classList.contains('pre')) requestAnimationFrame(() => f.classList.remove('pre'));
+        else if (!inZone && !f.classList.contains('pre')) f.classList.add('pre');
+      });
+    };
+    addEventListener('scroll', check, { passive: true }); addEventListener('resize', check);
+    const ftr = document.querySelector('.fs-track'); if (ftr) ftr.addEventListener('scroll', check, { passive: true });
+    document.querySelectorAll('.fs-tab,.fs-prev,.fs-next').forEach(b => b.addEventListener('click', () => setTimeout(check, 450)));
+    check();
+  }
+
+  /* overview: the constraint nearest the reading line is highlighted and counted */
+  const ovList = document.querySelector('.ov-list');
+  if (ovList) {
+    const items = [...ovList.children], now = document.querySelector('.ov-now');
+    const foot = document.querySelector('.sticky.bottom-0');
+    const pick = () => {
+      if (RM.matches) { ovList.classList.add('ov-static'); return; }
+      const fb = foot && foot.offsetParent ? foot.getBoundingClientRect().height : 0;
+      const target = (innerHeight - fb) * 0.45;
+      let best = 0, bd = Infinity;
+      items.forEach((it, i) => { const r = it.getBoundingClientRect(), d = Math.abs(r.top + r.height / 2 - target); if (d < bd) { bd = d; best = i; } });
+      items.forEach((it, i) => it.classList.toggle('is-active', i === best));
+      const label = '0' + (best + 1);
+      if (now && now.textContent !== label) now.textContent = label;
+    };
+    addEventListener('scroll', pick, { passive: true }); addEventListener('resize', pick); pick();
+  }
+
+  /* before / after rows: strike the old state, then bring in the new one, as each row reaches the trigger line */
+  const baRows = [...document.querySelectorAll('.ba-row')];
+  if (baRows.length && !RM.matches && 'IntersectionObserver' in window) {
+    const bao = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { bao.unobserve(e.target); requestAnimationFrame(() => e.target.classList.remove('pre')); } }), { rootMargin: '0px 0px -35% 0px' });
+    baRows.forEach(r => { if (r.getBoundingClientRect().top > innerHeight * 0.65) { r.classList.add('pre'); bao.observe(r); } });
+  }
+
+  /* outcomes: handled by the shared play-on-view logic (replays on return) */
+
+  /* challenge / solution word animation */
+  const csBlocks = [...document.querySelectorAll('.cs-cs')];
+  if (csBlocks.length && !RM.matches) {
+    csBlocks.forEach(b => b.classList.add('pre'));
+    /* plays when the block sits in the upper 70% of the visible area (above the sticky footer)
+       and is fully on screen sideways; resets once it leaves, so it replays like the audit bars */
+    const csFoot = document.querySelector('.sticky.bottom-0');
+    const csCheck = () => {
+      if (still()) { csBlocks.forEach(b => { b.classList.remove('pre'); b.classList.add('go'); }); return; }
+      const fb = csFoot && csFoot.offsetParent ? csFoot.getBoundingClientRect().height : 0;
+      const line = (innerHeight - fb) * 0.7;
+      csBlocks.forEach(b => {
+        const r = b.getBoundingClientRect();
+        const inZone = r.top <= line && r.bottom > 80 && r.left >= -2 && r.right <= innerWidth + 2;
+        const gone = r.top > innerHeight || r.bottom < 0 || r.right < 0 || r.left > innerWidth;
+        if (inZone && !b.classList.contains('go')) requestAnimationFrame(() => { b.classList.remove('pre'); b.classList.add('go'); });
+        else if (gone && b.classList.contains('go')) { b.classList.remove('go'); b.classList.add('pre'); }
+      });
+    };
+    addEventListener('scroll', csCheck, { passive: true }); addEventListener('resize', csCheck);
+    document.querySelectorAll('.cs-swipe').forEach(t => t.addEventListener('scroll', csCheck, { passive: true }));
+    setTimeout(csCheck, 900);
+  } else csBlocks.forEach(b => b.classList.add('go'));
+
+  /* outcomes on mobile: three swipeable panels with pagination dots below */
+  document.querySelectorAll('.sap').forEach(sap => {
+    const cols = [...sap.children].filter(c => c.classList.contains('sap-col')); if (cols.length < 2) return;
+    const pg = document.createElement('div'); pg.className = 'sap-pager'; pg.setAttribute('aria-label', 'Outcomes');
+    cols.forEach((c, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'sap-pip'; b.setAttribute('aria-label', 'Show outcome ' + (i + 1) + ' of ' + cols.length); b.addEventListener('click', () => sap.scrollTo({ left: c.offsetLeft - cols[0].offsetLeft, behavior: still() ? 'auto' : 'smooth' })); pg.appendChild(b); });
+    sap.after(pg);
+    const pips = [...pg.children];
+    const sync = () => { const step = (cols[1].offsetLeft - cols[0].offsetLeft) || sap.clientWidth; const k = Math.round(sap.scrollLeft / (step || 1)); pips.forEach((p, i) => p.setAttribute('aria-current', i === k ? 'true' : 'false')); };
+    let t; sap.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(sync, 50); dispatchEvent(new Event('scroll')); }, { passive: true });
+    addEventListener('resize', sync); sync();
+  });
+
+  /* before / after on phones: two swipeable panels of three rows, with dots below */
+  document.querySelectorAll('.ba').forEach(ba => {
+    const rows = [...ba.children]; if (rows.length < 4) return;
+    const n = Math.ceil(rows.length / 3);
+    const pg = document.createElement('div'); pg.className = 'sap-pager ba-pager'; pg.setAttribute('aria-label', 'Before and after');
+    for (let i = 0; i < n; i++) { const b = document.createElement('button'); b.type = 'button'; b.className = 'sap-pip'; b.setAttribute('aria-label', 'Show before and after panel ' + (i + 1) + ' of ' + n); b.addEventListener('click', () => ba.scrollTo({ left: rows[i * 3].offsetLeft - rows[0].offsetLeft, behavior: still() ? 'auto' : 'smooth' })); pg.appendChild(b); }
+    ba.after(pg);
+    const pips = [...pg.children];
+    const sync = () => { const step = (rows[3].offsetLeft - rows[0].offsetLeft) || ba.clientWidth; const k = Math.round(ba.scrollLeft / (step || 1)); pips.forEach((p, i) => p.setAttribute('aria-current', i === k ? 'true' : 'false')); };
+    let t; ba.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(sync, 50); dispatchEvent(new Event('scroll')); }, { passive: true });
+    addEventListener('resize', sync); sync();
+  });
+
+  /* brand theme cards on phones and tablets: swipe sideways, with dots below */
+  document.querySelectorAll('.themes, .cards3, .figs').forEach(ul => {
+    const cards = [...ul.children]; if (cards.length < 2) return;
+    const isTheme = ul.classList.contains('themes'), what = isTheme ? 'brand theme' : 'card';
+    const pg = document.createElement('div'); pg.className = 'sap-pager ' + (isTheme ? 'themes-pager' : 'cards3-pager'); pg.setAttribute('aria-label', isTheme ? 'Brand themes' : 'Cards');
+    const left = c => c.offsetLeft - cards[0].offsetLeft;
+    cards.forEach((c, i) => { const b = document.createElement('button'); b.type = 'button'; b.className = 'sap-pip'; b.setAttribute('aria-label', 'Show ' + what + ' ' + (i + 1) + ' of ' + cards.length); b.addEventListener('click', () => ul.scrollTo({ left: left(c), behavior: still() ? 'auto' : 'smooth' })); pg.appendChild(b); });
+    ul.after(pg);
+    const pips = [...pg.children];
+    const sync = () => { let k = 0, bd = Infinity; cards.forEach((c, i) => { const d = Math.abs(left(c) - ul.scrollLeft); if (d < bd) { bd = d; k = i; } }); if (ul.scrollLeft >= ul.scrollWidth - ul.clientWidth - 2) k = cards.length - 1; pips.forEach((p, i) => p.setAttribute('aria-current', i === k ? 'true' : 'false')); };
+    let t; ul.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(sync, 50); }, { passive: true });
+    addEventListener('resize', sync); sync();
+  });
+
+  /* images inside sideways sliders load up front; lazy loading can skip images in off-screen slides */
+  document.querySelectorAll('.fs-track img[loading="lazy"], .figs img[loading="lazy"], .themes img[loading="lazy"], .cards3 img[loading="lazy"]').forEach(img => { img.loading = 'eager'; });
+
+  /* screen readers hear each final number, not the count-up animation */
+  document.querySelectorAll('.count').forEach(c => { const s = document.createElement('span'); s.className = 'sr-only'; s.textContent = (c.dataset.pre || '') + c.dataset.to + (c.dataset.suf || ''); c.setAttribute('aria-hidden', 'true'); c.after(s); });
+
+  /* generic "play when in view, replay when it comes back" for diagrams */
+  const pov = [...document.querySelectorAll('.play-on-view')];
+  if (pov.length && !RM.matches) {
+    const pf = document.querySelector('.sticky.bottom-0');
+    pov.forEach(el => el.classList.add('pre'));
+    const povCheck = () => {
+      if (still()) { pov.forEach(el => { el.classList.remove('pre'); el.classList.add('go'); }); return; }
+      const fb = pf && pf.offsetParent ? pf.getBoundingClientRect().height : 0, line = (innerHeight - fb) * 0.75;
+      pov.forEach(el => {
+        const r = el.getBoundingClientRect();
+        const onScreenX = r.left >= -2 && r.right <= innerWidth + 2 && r.width > 0;
+        const inZone = onScreenX && r.top <= line && r.bottom > 60;
+        const gone = !onScreenX || r.top > innerHeight || r.bottom < 0;
+        if (inZone && !el.classList.contains('go')) requestAnimationFrame(() => { el.classList.remove('pre'); el.classList.add('go'); });
+        else if (gone && el.classList.contains('go')) { el.classList.remove('go'); el.classList.add('pre'); }
+      });
+    };
+    addEventListener('scroll', povCheck, { passive: true }); addEventListener('resize', povCheck);
+    const tr = document.querySelector('.fs-track'); if (tr) tr.addEventListener('scroll', povCheck, { passive: true });
+    setTimeout(povCheck, 600);
+  }
+
+  /* work filter: leaving cards fade out, the rest glide into their new slots (FLIP), new ones slide in */
+  const tabs = [...document.querySelectorAll('.ftab')], cases = [...document.querySelectorAll('.case')];
+  const ON = ['btn-primary'];
+  const OFF = ['btn-secondary'];
+  const EASE = 'cubic-bezier(.2,.8,.2,1)';
+  const stopFlt = c => c.getAnimations().forEach(a => { if (a.id === 'flt') a.cancel(); });
+  let fltRun = null;
+  tabs.forEach(t => t.addEventListener('click', () => {
+    const f = t.dataset.f;
+    tabs.forEach(x => { const on = x === t; x.setAttribute('aria-selected', String(on)); x.classList.remove(...(on ? OFF : ON)); x.classList.add(...(on ? ON : OFF)); });
+    const show = c => f === 'all' || c.dataset.cats.split(' ').includes(f);
+    const track = document.querySelector('.wk-track');
+    const apply = () => { cases.forEach(c => { c.hidden = !show(c); }); if (track) track.scrollLeft = 0; document.dispatchEvent(new Event('work:filtered')); };
+    cases.forEach(stopFlt);
+    if (still()) return apply();
+    const run = fltRun = {};
+    const was = cases.filter(c => !c.hidden), leaving = was.filter(c => !show(c));
+    const outs = leaving.map(c => { const a = c.animate([{ opacity: 1, transform: 'none' }, { opacity: 0, transform: 'scale(.94)' }], { duration: 240, easing: 'ease-in', fill: 'forwards' }); a.id = 'flt'; return a.finished.catch(() => {}); });
+    Promise.all(outs).then(() => {
+      if (fltRun !== run) return;
+      const first = new Map(was.filter(show).map(c => [c, c.getBoundingClientRect()]));
+      // pause snapping while cards glide, or the track chases the moving card
+      if (track) track.style.scrollSnapType = 'none';
+      apply();
+      leaving.forEach(stopFlt);
+      let n = 0; const anims = [];
+      cases.filter(c => !c.hidden).forEach(c => {
+        const r = c.getBoundingClientRect(), p = first.get(c);
+        let a;
+        if (p) {
+          const dx = p.left - r.left, dy = p.top - r.top;
+          if (!dx && !dy) return;
+          a = c.animate([{ transform: `translate(${dx}px,${dy}px)` }, { transform: 'none' }], { duration: 560, easing: EASE });
+        } else {
+          a = c.animate([{ opacity: 0, transform: 'translateX(48px) scale(.96)' }, { opacity: 1, transform: 'none' }], { duration: 520, delay: 120 + n++ * 80, easing: EASE, fill: 'backwards' });
+        }
+        a.id = 'flt'; anims.push(a.finished.catch(() => {}));
+      });
+      const hold = () => { if (track && fltRun === run) track.scrollLeft = 0; };
+      const tick = () => { if (fltRun !== run) return; hold(); if (anims.length && c0 < 60) { c0++; requestAnimationFrame(tick); } }; let c0 = 0; tick();
+      Promise.all(anims).then(() => { if (fltRun === run && track) { track.style.scrollSnapType = ''; hold(); } });
+    });
+  }));
+
+  /* swipeable rows with pagination dots ("What I'm up to", case study Challenge/Solution on mobile) */
+  const swiper = (track, dots) => {
+    if (!track || !dots.length) return;
+    const cards = [...track.children];
+    const setDot = k => dots.forEach((d, i) => {
+      const on = i === k; d.setAttribute('aria-selected', String(on));
+      const s = d.firstElementChild;
+      s.classList.toggle('w-6', on); s.classList.toggle('w-2', !on);
+      ['bg-gray-900', 'dark:bg-white'].forEach(c => s.classList.toggle(c, on));
+      ['bg-gray-400', 'dark:bg-gray-600'].forEach(c => s.classList.toggle(c, !on));
+    });
+    dots.forEach((d, i) => d.addEventListener('click', () => {
+      const c = cards[i];
+      track.scrollTo({ left: c.offsetLeft - (track.clientWidth - c.offsetWidth) / 2, behavior: still() ? 'auto' : 'smooth' });
+    }));
+    track.addEventListener('scroll', () => {
+      const mid = track.scrollLeft + track.clientWidth / 2;
+      let best = 0, bd = Infinity;
+      cards.forEach((c, i) => { const d = Math.abs(c.offsetLeft + c.offsetWidth / 2 - mid); if (d < bd) { bd = d; best = i; } });
+      setDot(best);
+    }, { passive: true });
+  };
+  swiper(document.getElementById('nowTrack'), [...document.querySelectorAll('#now .dot')]);
+  document.querySelectorAll('.cs-swipe').forEach(t => swiper(t, [...t.nextElementSibling.querySelectorAll('.dot')]));
+  document.querySelectorAll('.proc-wrap').forEach(w => {
+    const t = w.querySelector('.proc'); swiper(t, [...w.querySelectorAll('.dot')]);
+    const prev = w.querySelector('.proc-prev'), next = w.querySelector('.proc-next');
+    const step = dir => { const c = t.firstElementChild; t.scrollBy({ left: dir * (c.offsetWidth + 16), behavior: still() ? 'auto' : 'smooth' }); };
+    const sync = () => { prev.disabled = t.scrollLeft < 4; next.disabled = t.scrollLeft + t.clientWidth > t.scrollWidth - 4; };
+    prev.addEventListener('click', () => step(-1)); next.addEventListener('click', () => step(1));
+    t.addEventListener('scroll', sync, { passive: true }); addEventListener('resize', sync); sync();
+  });
+
+  /* full story slides */
+  const slider = document.querySelector('.fs-slider');
+  if (slider) {
+    const track = slider.querySelector('.fs-track'), slides = [...track.children];
+    const tabs = [...slider.querySelectorAll('.fs-tab')], dots = [...slider.querySelectorAll('.fs-dots .dot')];
+    const prev = slider.querySelector('.fs-prev'), next = slider.querySelector('.fs-next'), pos = slider.querySelector('.fs-pos');
+    let cur = -1;
+    const fit = () => { track.style.height = slides[Math.max(cur, 0)].offsetHeight + 'px'; };
+    const setActive = k => {
+      if (k === cur) return; const first = cur === -1; cur = k;
+      slides.forEach((s, i) => { s.classList.toggle('is-active', i === k); s.setAttribute('aria-hidden', String(i !== k)); s.querySelectorAll('a,button,[tabindex]').forEach(el => el.tabIndex = i === k ? 0 : -1); });
+      tabs.forEach((t, i) => { const on = i === k; t.setAttribute('aria-selected', String(on)); t.tabIndex = on ? 0 : -1; });
+      /* scroll only the tab row sideways; scrollIntoView would also scroll the page vertically */
+      const row = tabs[k].parentElement, t = tabs[k];
+      const left = t.offsetLeft - row.offsetLeft - (row.clientWidth - t.offsetWidth) / 2;
+      row.scrollTo({ left: Math.max(0, left), behavior: (still() || first) ? 'auto' : 'smooth' });
+      dots.forEach((d, i) => { const on = i === k, s = d.firstElementChild; d.setAttribute('aria-current', on ? 'true' : 'false'); s.classList.toggle('w-6', on); s.classList.toggle('w-2', !on); ['bg-gray-900', 'dark:bg-white'].forEach(c => s.classList.toggle(c, on)); ['bg-gray-400', 'dark:bg-gray-600'].forEach(c => s.classList.toggle(c, !on)); });
+      prev.disabled = k === 0; next.disabled = k === slides.length - 1; pos.textContent = (k + 1) + ' / ' + slides.length;
+      fit(); setTimeout(() => dispatchEvent(new Event('scroll')), 80);
+    };
+    const go = (k, focusTab) => {
+      k = Math.max(0, Math.min(slides.length - 1, k));
+      track.scrollTo({ left: slides[k].offsetLeft - track.offsetLeft, behavior: still() ? 'auto' : 'smooth' });
+      setActive(k);
+      const top = slider.getBoundingClientRect().top;
+      if (top < 0) scrollBy({ top: top - 90, behavior: still() ? 'auto' : 'smooth' });
+      if (focusTab) tabs[k].focus({ preventScroll: true });
+    };
+    tabs.forEach((t, i) => t.addEventListener('click', () => go(i)));
+    dots.forEach((d, i) => d.addEventListener('click', () => go(i)));
+    prev.addEventListener('click', () => go(cur - 1)); next.addEventListener('click', () => go(cur + 1));
+    slider.querySelector('.fs-tabs').addEventListener('keydown', e => {
+      const map = { ArrowRight: cur + 1, ArrowLeft: cur - 1, Home: 0, End: slides.length - 1 };
+      if (e.key in map) { e.preventDefault(); go(map[e.key], true); }
+    });
+    let st; track.addEventListener('scroll', () => { clearTimeout(st); st = setTimeout(() => setActive(Math.round(track.scrollLeft / (track.clientWidth + (parseFloat(getComputedStyle(track).columnGap) || 0)))), 60); dispatchEvent(new Event('scroll')); }, { passive: true });
+    addEventListener('resize', fit);
+    if ('ResizeObserver' in window) new ResizeObserver(fit).observe(slides[0].parentElement);
+    slides.forEach(s => 'ResizeObserver' in window && new ResizeObserver(() => { if (s.classList.contains('is-active')) fit(); }).observe(s));
+    setActive(0);
+  }
+
+  /* home: case study carousel (arrows, dots for visible cards, keeps working after filtering) */
+  const wk = document.querySelector('.wk-track');
+  if (wk) {
+    const dotsEl = document.querySelector('.wk-dots'), pos = document.querySelector('.wk-pos');
+    const prev = document.querySelector('.wk-prev'), next = document.querySelector('.wk-next');
+    const vis = () => [...wk.children].filter(c => !c.hidden);
+    const active = () => { const v = vis(); let best = 0, bd = Infinity; const left = wk.scrollLeft + parseFloat(getComputedStyle(wk).scrollPaddingLeft || 0);
+      v.forEach((c, i) => { const d = Math.abs(c.offsetLeft - left); if (d < bd) { bd = d; best = i; } }); return best; };
+    const go = i => { const v = vis(); i = Math.max(0, Math.min(v.length - 1, i)); const pad = parseFloat(getComputedStyle(wk).scrollPaddingLeft || 0);
+      wk.scrollTo({ left: v[i].offsetLeft - pad, behavior: still() ? 'auto' : 'smooth' }); };
+    const build = () => {
+      const v = vis();
+      dotsEl.innerHTML = v.map((c, i) => `<button class="dot relative inline-flex items-center justify-center min-h-[44px] px-[4px]" type="button" aria-label="Go to case study ${i + 1}"><span class="block rounded-full transition-all h-2 ${i === 0 ? 'bg-gray-900 dark:bg-white w-6' : 'bg-gray-400 dark:bg-gray-600 w-2'}" aria-hidden="true"></span></button>`).join('');
+      [...dotsEl.children].forEach((d, i) => d.addEventListener('click', () => go(i)));
+      sync();
+    };
+    const sync = () => {
+      const v = vis(), k = active();
+      [...dotsEl.children].forEach((d, i) => { const s = d.firstElementChild, on = i === k; d.setAttribute('aria-current', on ? 'true' : 'false');
+        s.classList.toggle('w-6', on); s.classList.toggle('w-2', !on);
+        ['bg-gray-900', 'dark:bg-white'].forEach(c => s.classList.toggle(c, on)); ['bg-gray-400', 'dark:bg-gray-600'].forEach(c => s.classList.toggle(c, !on)); });
+      pos.textContent = v.length ? `${k + 1} / ${v.length}` : '';
+      prev.disabled = wk.scrollLeft < 4; next.disabled = wk.scrollLeft + wk.clientWidth > wk.scrollWidth - 4;
+    };
+    prev.addEventListener('click', () => go(active() - 1)); next.addEventListener('click', () => go(active() + 1));
+    wk.addEventListener('keydown', e => { if (e.key === 'ArrowRight') { e.preventDefault(); go(active() + 1); } if (e.key === 'ArrowLeft') { e.preventDefault(); go(active() - 1); } });
+    let t; wk.addEventListener('scroll', () => { clearTimeout(t); t = setTimeout(sync, 60); }, { passive: true });
+    addEventListener('resize', sync);
+    document.addEventListener('work:filtered', () => build());
+    build();
+  }
+
+  /* home hero: a field of dots that bonds into molecules around the pointer.
+     Idle, a slow "ghost" wanders so it's alive without input; clicks and headline changes send a ripple. */
+  const field = document.getElementById('heroField');
+  if (field) {
+    const hero = field.parentElement, ctx = field.getContext('2d');
+    let W = 0, H = 0, dpr = 1, dots = [], cols = 0, rows = 0, ripples = [], raf = 0, visible = true, wave = null;
+    const GAP = 30, R = 170;
+    const ptr = { x: -9999, y: -9999, tx: -9999, ty: -9999, active: false, last: 0 };
+    const ghost = { t: Math.random() * 100 };
+    const col = () => root.classList.contains('dark') ? { dot: [148, 163, 184], ink: [255, 255, 255], base: .28 } : { dot: [148, 156, 170], ink: [16, 24, 40], base: .38 };
+    const size = () => {
+      const r = hero.getBoundingClientRect(); dpr = Math.min(2, devicePixelRatio || 1);
+      W = r.width; H = r.height; field.width = W * dpr; field.height = H * dpr; ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      cols = Math.ceil(W / GAP) + 1; rows = Math.ceil(H / GAP) + 1; dots = [];
+      const ox = (W - (cols - 1) * GAP) / 2, oy = (H - (rows - 1) * GAP) / 2;
+      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) dots.push({ x: ox + x * GAP, y: oy + y * GAP, dx: 0, dy: 0, k: 0 });
+    };
+    const ripple = (x, y, d = 1600, s = 1) => ripples.push({ x, y, t: performance.now(), d, s });
+    const draw = now => {
+      raf = 0;
+      const c = col();
+      // pointer eases toward its target; when idle, a ghost drifts in a slow loop
+      if (!ptr.active || now - ptr.last > 4000) {
+        ghost.t += 0.0035;
+        // ease toward the ghost's path so the hand-off from the real cursor never jumps
+        const gx = W * (.5 + .34 * Math.sin(ghost.t * 1.3)), gy = H * (.5 + .3 * Math.sin(ghost.t * 2.1 + 1)), e = ptr.blend = Math.min(.04, (ptr.blend || 0) + .0004);
+        ptr.tx += (gx - ptr.tx) * e; ptr.ty += (gy - ptr.ty) * e;
+      }
+      ptr.x += (ptr.tx - ptr.x) * .12; ptr.y += (ptr.ty - ptr.y) * .12;
+      ctx.clearRect(0, 0, W, H);
+      ripples = ripples.filter(r => now - r.t < r.d);
+      if (wave && now - wave.t > wave.d) wave = null;
+      for (const d of dots) {
+        const vx = d.x - ptr.x, vy = d.y - ptr.y, dist = Math.hypot(vx, vy);
+        let k = dist < R ? Math.pow(1 - dist / R, 1.6) : 0, push = 0;
+        for (const r of ripples) { const age = (now - r.t) / r.d, front = age * Math.max(W, H) * .8 * r.s, rd = Math.hypot(d.x - r.x, d.y - r.y), w = Math.max(0, 1 - Math.abs(rd - front) / 70) * (1 - age); k = Math.max(k, w * .8); push += w * 6; }
+        let wy = 0, wx = 0;
+        if (wave) { // headline change: a soft swell rolls diagonally across the whole grid
+          const a = (now - wave.t) / wave.d, env = Math.sin(Math.PI * Math.min(1, a)), kw = 6.2832 / Math.max(W * 1.15, 900), ph = (d.x + d.y * .12) * kw - (now - wave.t) * .0011, s = Math.sin(ph);
+          // mostly a light swell (dots brighten), with only a whisper of movement, to stay easy on the eyes
+          wy = env * 2.5 * s; k = Math.max(k, env * .4 * Math.pow(.5 + .5 * s, 2));
+        }
+        const tx = (dist ? vx / dist * (k * 10 + push) : 0) + wx, ty = (dist ? vy / dist * (k * 10 + push) : 0) + wy;
+        d.dx += (tx - d.dx) * .18; d.dy += (ty - d.dy) * .18; d.k = k;
+      }
+      // bonds between neighboring energized dots
+      ctx.lineWidth = 1;
+      for (let y = 0; y < rows; y++) for (let x = 0; x < cols; x++) {
+        const a = dots[y * cols + x]; if (a.k < .12) continue;
+        const nb = [x + 1 < cols ? dots[y * cols + x + 1] : null, y + 1 < rows ? dots[(y + 1) * cols + x] : null, (x + 1 < cols && y + 1 < rows && (x + y) % 3 === 0) ? dots[(y + 1) * cols + x + 1] : null];
+        for (const b of nb) { if (!b || b.k < .12) continue; const al = Math.min(a.k, b.k) * .32;
+          ctx.strokeStyle = `rgba(${c.ink},${al})`; ctx.beginPath(); ctx.moveTo(a.x + a.dx, a.y + a.dy); ctx.lineTo(b.x + b.dx, b.y + b.dy); ctx.stroke(); }
+      }
+      for (const d of dots) {
+        const r = 1.1 + d.k * 2.6, al = c.base + d.k * .62;
+        const mix = d.k; const rgb = c.dot.map((v, i) => Math.round(v + (c.ink[i] - v) * mix));
+        ctx.fillStyle = `rgba(${rgb},${al})`; ctx.beginPath(); ctx.arc(d.x + d.dx, d.y + d.dy, r, 0, 6.2832); ctx.fill();
+      }
+      if (visible && !still()) raf = requestAnimationFrame(draw);
+    };
+    const start = () => { if (!raf) raf = requestAnimationFrame(draw); };
+    hero.addEventListener('pointermove', e => { const r = hero.getBoundingClientRect(); ptr.tx = e.clientX - r.left; ptr.ty = e.clientY - r.top; ptr.active = true; ptr.blend = 0; ptr.last = performance.now(); start(); });
+    hero.addEventListener('pointerleave', () => { ptr.last = performance.now() - 2500; });
+    hero.addEventListener('pointerdown', e => { if (e.target.closest('a,button')) return; const r = hero.getBoundingClientRect(); ripple(e.clientX - r.left, e.clientY - r.top); start(); });
+    new IntersectionObserver(es => { visible = es[0].isIntersecting; if (visible) start(); }).observe(hero);
+    new MutationObserver(() => { if (!still()) start(); else draw(performance.now()); }).observe(root, { attributes: true, attributeFilter: ['class'] });
+    // (headline-change wave removed; saved in motion.wave.js)
+    addEventListener('resize', () => { size(); start(); });
+    size(); ptr.x = ptr.tx = W * .5; ptr.y = ptr.ty = H * .5;
+    if (still()) draw(performance.now()); else start();
+  }
+
+  /* expertise explorer: hover, click or arrow keys pick a skill (desktop); all open on small screens */
+  const xe = document.querySelector('.xe');
+  if (xe) {
+    const items = [...xe.querySelectorAll('.xe-item')], tabs2 = items.map(i => i.querySelector('.xe-tab'));
+    const pick = (k, focus) => items.forEach((it, i) => { const on = i === k; it.classList.toggle('is-on', on); tabs2[i].setAttribute('aria-selected', String(on)); tabs2[i].tabIndex = on ? 0 : -1; if (on && focus) tabs2[i].focus(); });
+    tabs2.forEach((t, i) => {
+      t.addEventListener('click', () => { const wide = matchMedia('(min-width: 64rem)').matches; if (!wide && items[i].classList.contains('is-on')) { items[i].classList.remove('is-on'); t.setAttribute('aria-selected', 'false'); return; } pick(i); });
+      t.addEventListener('mouseenter', () => { if (matchMedia('(hover: hover) and (min-width: 64rem)').matches) pick(i); });
+      t.addEventListener('keydown', e => { const d = { ArrowDown: 1, ArrowRight: 1, ArrowUp: -1, ArrowLeft: -1 }[e.key]; if (d) { e.preventDefault(); pick((i + d + tabs2.length) % tabs2.length, true); } else if (e.key === 'Home') { e.preventDefault(); pick(0, true); } else if (e.key === 'End') { e.preventDefault(); pick(tabs2.length - 1, true); } });
+    });
+  }
+
+  /* copy email */
+  const msg = document.getElementById('copyMsg'), btn = document.getElementById('copyBtn');
+  if (btn) btn.addEventListener('click', () => {
+    const email = document.querySelector('.email');
+    const select = () => { const r = document.createRange(); r.selectNodeContents(email); const s = getSelection(); s.removeAllRanges(); s.addRange(r); btn.textContent = 'Selected'; msg.textContent = 'Email selected. Press Command or Control plus C to copy.'; };
+    try { navigator.clipboard.writeText(email.textContent).then(() => { btn.textContent = 'Copied'; msg.textContent = 'Email copied.'; setTimeout(() => btn.textContent = 'Copy', 2000); }, select); } catch (e) { select(); }
+  });
+})();
+</script>
+<script>(() => {
+  /* swipe rows: reachable by keyboard (arrow keys scroll them) only while they overflow, with a name for screen readers */
+  const names = { 'cs-swipe': 'Challenge and solution', 'ba': 'Before and after', 'sap': 'Outcomes', 'themes': 'Brand themes', 'cards3': 'Token architecture', 'figs': 'Design versions', 'sh-list': "What I'm up to", 'ftabs': 'Filter work by category' };
+  const rows = [...document.querySelectorAll('.cs-swipe, .ba, .sap, .themes, .cards3, .figs, .sh-list')];
+  const sync = () => rows.forEach(el => {
+    const scrolls = el.scrollWidth > el.clientWidth + 2;
+    if (scrolls) { el.tabIndex = 0; el.classList.add('swipe-focus'); if (!el.getAttribute('aria-label')) { const k = Object.keys(names).find(c => el.classList.contains(c)); if (k) el.setAttribute('aria-label', names[k]); } if (!el.getAttribute('role') && el.tagName === 'DIV') el.setAttribute('role', 'region'); }
+    else if (el.classList.contains('swipe-focus')) { el.removeAttribute('tabindex'); el.classList.remove('swipe-focus'); if (el.getAttribute('role') === 'region' && !el.classList.contains('cs-swipe')) el.removeAttribute('role'); }
+  });
+  addEventListener('resize', sync); addEventListener('load', sync); sync();
+})();</script>
+</body></html>
